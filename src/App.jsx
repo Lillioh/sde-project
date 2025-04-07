@@ -1,69 +1,164 @@
 import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
+import { Link } from "react-router-dom";
 import "./App.css";
 
 function App() {
-  const [count, setCount] = useState(0);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+
   const handleLogin = () => {
     console.log("Username:", username);
     console.log("Password:", password);
-    // Add login logic here (e.g., API call or validation)
+    window.open("https://www.youtube.com/watch?v=lwRtHLxRIIg");
   };
 
   return (
     <>
-      <div className="min-h-screen flex flex-col items-center bg-cream font-sans space-y-6">
-        <div className="flex flex-col items-center space-y-4">
+      <div
+        className="
+          flex flex-col
+          w-screen h-screen
+          items-center
+        "
+      >
+        <div
+          className="
+            flex flex-col
+            w-full h-1/3
+            font-sans
+            items-center justify-end
+          "
+        >
           <img
             src="/src/assets/logo.png"
             alt="Logo"
-            className="w-60 h-60 mt-14"
+            className="
+              max-w-40 max-h-40
+            "
           />
-          <span className="lg:text-[40px] md:text-[32px] font-bold text-center text-blue-900 mt-4">
-            USTP MARKET PLACE FOR STUDENTS
+          <span
+            className="
+              text-center text-[#183B4E] font-bold text-shadow-lg
+              md:text-3xl
+              lg:text-4xl
+            "
+          >
+            USTP MARKETPLACE FOR STUDENTS
           </span>
         </div>
 
-        <div className="w-full max-w-xs space-y-3 mt-9">
-          <input
-            type="text"
-            placeholder="Username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            className="w-full px-4 py-2 border text-black bg-white border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-md placeholder-gray-500"
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="w-full px-4 py-2 border text-black bg-white border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-md mt-3 placeholder-gray-500"
-          />
-          <div className="flex justify-between text-xs text-gray-600">
-            <a href="#" className="hover:underline">
-              Create account
-            </a>
-            <a href="#" className="hover:underline">
-              Forgot Password?
-            </a>
+        {/* Main Form Section */}
+        <div
+          className="
+            flex flex-col
+            w-full h-1/3
+            font-sans
+            items-center justify-end
+          "
+        >
+          {" "}
+          {/* Reduced py-10 to py-4 */}
+          <div
+            className="
+              w-full max-w-xs
+              space-y-3
+            "
+          >
+            <input
+              type="text"
+              placeholder="Username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              className="
+                w-full
+                px-4 py-2
+                text-black placeholder-gray-500
+                bg-white
+                border border-gray-300 rounded-md
+                shadow-md
+                focus:outline-none focus:ring-2 focus:ring-blue-500
+              "
+            />
+            <input
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="
+                w-full
+                px-4 py-2
+                text-black placeholder-gray-500
+                bg-white
+                border border-gray-300 rounded-md
+                shadow-md
+                focus:outline-none focus:ring-2 focus:ring-blue-500
+              "
+            />
+            <div
+              className="
+                flex
+                text-[14px] text-gray-600
+                justify-between
+              "
+            >
+              <Link
+                to="/create-account"
+                className="
+                  hover:underline
+                "
+              >
+                Create account
+              </Link>
+              <a
+                href="#"
+                className="
+                  hover:underline
+                "
+              >
+                Forgot Password?
+              </a>
+            </div>
+
+            <div
+              className="
+                mt-16
+              "
+            >
+              <button
+                onClick={handleLogin}
+                className="
+                  w-full
+                  py-3 px-4
+                  text-white font-bold
+                  bg-[#183B4E]
+                  rounded-lg
+                  transition-transform shadow-md
+                  hover:scale-102 hover:bg-[#DDA853] hover:text-black
+                "
+              >
+                Login
+              </button>
+            </div>
           </div>
         </div>
 
-        <div className="w-full max-w-xs shadow-xl mt-10">
-          <button
-            onClick={handleLogin}
-            className="w-full bg-blue-900 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded-lg shadow-md transition duration-300"
+        {/* Footer Section */}
+        <div
+          className="
+            flex flex-col
+            h-1/3
+            justify-end
+          "
+        >
+          <div
+            className="
+              w-full
+              text-center text-xs text-gray-500 font-sans
+            "
           >
-            Login
-          </button>
+            © 2025 All Rights Reserved.
+          </div>
         </div>
-
-        <footer className="absolute bottom-4 text-xs text-gray-500">
-          © 2025 All Rights Reserved.
-        </footer>
       </div>
     </>
   );
