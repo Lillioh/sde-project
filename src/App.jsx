@@ -9,7 +9,7 @@ function App() {
   const handleLogin = () => {
     console.log("Username:", username);
     console.log("Password:", password);
-    window.open("https://www.youtube.com/watch?v=lwRtHLxRIIg");
+    window.open("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
   };
 
   return (
@@ -25,7 +25,7 @@ function App() {
           className="
             flex flex-col
             w-full h-1/3
-            font-sans
+            font-[Poppins]
             items-center justify-end
           "
         >
@@ -52,7 +52,7 @@ function App() {
           className="
             flex flex-col
             w-full h-1/3
-            font-sans
+            font-[Poppins]
             items-center justify-end
           "
         >
@@ -76,7 +76,7 @@ function App() {
                 bg-white
                 border border-gray-300 rounded-md
                 shadow-md
-                focus:outline-none focus:ring-2 focus:ring-blue-500
+                focus:outline-none focus:ring-1 focus:ring-blue-500
               "
             />
             <input
@@ -91,7 +91,7 @@ function App() {
                 bg-white
                 border border-gray-300 rounded-md
                 shadow-md
-                focus:outline-none focus:ring-2 focus:ring-blue-500
+                focus:outline-none focus:ring-1 focus:ring-blue-500
               "
             />
             <div

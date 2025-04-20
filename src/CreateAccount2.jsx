@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import "./App.css";
 
-function CreateAccount() {
+function CreateAccount2() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmpassword, setConfirm] = useState("");
@@ -58,6 +58,7 @@ function CreateAccount() {
           "
         >
           Step 1: Provide Username, Password
+          <br />
           and Email
         </p>
 
@@ -86,12 +87,20 @@ function CreateAccount() {
               rounded-full
             "
           ></div>
+          <div
+            className="
+              w-2 h-2
+              mx-1
+              bg-gray-300
+              rounded-full
+            "
+          ></div>
         </div>
 
         {/* Form */}
-          <form
-            onSubmit={handleSubmit}
-            className="
+        <form
+          onSubmit={handleSubmit}
+          className="
             flex
             flex-col
             gap-2
@@ -99,27 +108,27 @@ function CreateAccount() {
             border-amber-300
             space-y-4
           "
-          >
-            <div>
-              <label
-                className="
+        >
+          <div>
+            <label
+              className="
                 block
                 text-sm font-medium text-gray-700 text-left
               "
-              >
-                Username
-              </label>
-              <div
-                className="
+            >
+              Username
+            </label>
+            <div
+              className="
                 relative
               "
-              >
-                <input
-                  type="text"
-                  placeholder="Enter your username"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                  className="
+            >
+              <input
+                type="text"
+                placeholder="Enter your username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                className="
                   w-full
                   px-4 py-2
                   placeholder-gray-500 text-[14px] text-black
@@ -127,63 +136,63 @@ function CreateAccount() {
                   shadow-[inset_0px_2px_3px_rgba(0,0,0,0.2)]
                   focus:outline-none focus:ring-1 focus:ring-blue-500
                 "
-                />
-                <span
-                  className="
+              />
+              <span
+                className="
                   text-pink-600 font-bold text-xl
                   absolute right-3 top-2.5
                 "
-                >
-                  i
-                </span>
-              </div>
+              >
+                i
+              </span>
             </div>
+          </div>
 
-            <div>
-              <label
-                className="
+          <div>
+            <label
+              className="
                 block
                 text-sm font-medium text-gray-700 text-left
               "
-              >
-                Password
-              </label>
+            >
+              Password
+            </label>
+            <input
+              type="password"
+              placeholder="Enter your password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="
+                w-full
+                px-4 py-2
+                placeholder-gray-500 text-[14px] text-black
+                border rounded-md
+                shadow-[inset_0px_2px_3px_rgba(0,0,0,0.2)]
+                focus:outline-none focus:ring-1 focus:ring-blue-500
+              "
+            />
+          </div>
+
+          <div>
+            <label
+              className="
+                block
+                text-sm font-medium text-gray-700 text-left
+              "
+            >
+              Confirm Password
+            </label>
+            <div
+              className="
+                relative
+              "
+            >
               <input
                 type="password"
-                placeholder="Enter your password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Confirm your password"
+                value={confirmpassword}
+                onChange={(e) => setConfirm(e.target.value)}
                 className="
-                w-full
-                px-4 py-2
-                placeholder-gray-500 text-[14px] text-black
-                border rounded-md
-                shadow-[inset_0px_2px_3px_rgba(0,0,0,0.2)]
-                focus:outline-none focus:ring-1 focus:ring-blue-500
-              "
-              />
-            </div>
-
-            <div>
-              <label
-                className="
-                block
-                text-sm font-medium text-gray-700 text-left
-              "
-              >
-                Confirm Password
-              </label>
-              <div
-                className="
-                relative
-              "
-              >
-                <input
-                  type="password"
-                  placeholder="Confirm your password"
-                  value={confirmpassword}
-                  onChange={(e) => setConfirm(e.target.value)}
-                  className="
                   w-full
                   px-4 py-2
                   placeholder-gray-500 text-[14px] text-black
@@ -191,33 +200,33 @@ function CreateAccount() {
                   shadow-[inset_0px_2px_3px_rgba(0,0,0,0.2)]
                   focus:outline-none focus:ring-1 focus:ring-blue-500
                 "
-                />
-                <span
-                  className="
+              />
+              <span
+                className="
                   text-pink-600 font-bold text-xl
                   absolute right-3 top-2.5
                 "
-                >
-                  i
-                </span>
-              </div>
+              >
+                i
+              </span>
             </div>
+          </div>
 
-            <div>
-              <label
-                className="
+          <div>
+            <label
+              className="
                 block
                 text-sm font-medium text-gray-700 text-left
               "
-              >
-                Email Address
-              </label>
-              <input
-                type="email"
-                placeholder="Enter your email address"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="
+            >
+              Email Address
+            </label>
+            <input
+              type="email"
+              placeholder="Enter your email address"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="
                 w-full
                 px-4 py-2
                 placeholder-gray-500 text-[14px] text-black
@@ -225,12 +234,12 @@ function CreateAccount() {
                 shadow-[inset_0px_2px_3px_rgba(0,0,0,0.2)]
                 focus:outline-none focus:ring-1 focus:ring-blue-500
               "
-              />
-            </div>
-            <Link to="/create-account-2">
-              <button
-                type="submit"
-                className="
+            />
+          </div>
+          <Link to="/create-account-2">
+            <button
+              type="submit"
+              className="
               w-full
               py-2 mt-2
               text-white font-semibold
@@ -239,14 +248,14 @@ function CreateAccount() {
               shadow-md
               hover:bg-blue-800
             "
-              >
-                Next
-              </button>
-            </Link>
-          </form>
+            >
+              Next
+            </button>
+          </Link>
+        </form>
       </div>
     </div>
   );
 }
 
-export default CreateAccount;
+export default CreateAccount2;
