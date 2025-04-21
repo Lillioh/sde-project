@@ -22,7 +22,7 @@ function buyerDashboard() {
           flex
           flex-row
           w-full
-          h-[120px]
+          h-[70px]
           p-4
           text-white
           bg-[#213567]
@@ -32,7 +32,11 @@ function buyerDashboard() {
         <div
           className="
             flex
-            gap-4
+            flex-row
+            gap-5
+            border-2
+            border-amber-950
+            justify-items-center
           "
         >
           <FaHome />
@@ -113,6 +117,7 @@ function buyerDashboard() {
         <div
           className="
             flex-1 grid grid-cols-2 overflow-auto
+            no-scrollbar
             h-180
             mt-5 ml-2 mr-4
             bg-[#FAEBD7]

@@ -15,6 +15,16 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
 a {
   color: rgb(0, 0, 255);
 }

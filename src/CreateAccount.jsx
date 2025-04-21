@@ -128,14 +128,6 @@ function CreateAccount() {
                   focus:outline-none focus:ring-1 focus:ring-blue-500
                 "
                 />
-                <span
-                  className="
-                  text-pink-600 font-bold text-xl
-                  absolute right-3 top-2.5
-                "
-                >
-                  i
-                </span>
               </div>
             </div>
 
@@ -192,14 +184,6 @@ function CreateAccount() {
                   focus:outline-none focus:ring-1 focus:ring-blue-500
                 "
                 />
-                <span
-                  className="
-                  text-pink-600 font-bold text-xl
-                  absolute right-3 top-2.5
-                "
-                >
-                  i
-                </span>
               </div>
             </div>
 
