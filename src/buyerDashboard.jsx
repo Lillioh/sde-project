@@ -20,7 +20,7 @@ function buyerDashboard() {
         font-sans
       "
     >
-      {/* Top Navbar */}
+      {/* Top Navbar Starts here */}
       <div
         className="
           flex 
@@ -93,7 +93,9 @@ function buyerDashboard() {
             Start selling here
           </span>
         </div>
-      </div>
+      </div>  
+      {/* Nav Bar ends here */}
+
 
       {/* Main Content */}
       <div

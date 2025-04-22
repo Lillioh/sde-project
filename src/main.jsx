@@ -6,6 +6,7 @@ import CreateAccount from "./CreateAccount";
 import CreateAccount2 from "./CreateAccount2";
 import BuyerDashboard from "./buyerDashboard";
 import App from "./App.jsx";
+import ForgotPassword from "./ForgotPassword.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -15,6 +16,7 @@ createRoot(document.getElementById("root")).render(
         <Route path="/buyer-dashboard" element={<BuyerDashboard />} />
         <Route path="/create-account" element={<CreateAccount />} />
         <Route path="/create-account-2" element={<CreateAccount2 />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
       </Routes>
     </BrowserRouter>
   </StrictMode>
