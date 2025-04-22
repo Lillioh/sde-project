@@ -1,5 +1,9 @@
 import { FaHome, FaBell, FaShoppingCart } from "react-icons/fa";
 import { MdAccountCircle } from "react-icons/md";
+import { useState } from "react";
+import { Link } from "react-router-dom";
+
+
 
 function buyerDashboard() {
   const products = Array(20).fill({
@@ -19,69 +23,71 @@ function buyerDashboard() {
       {/* Top Navbar */}
       <div
         className="
-          flex
+          flex 
           flex-row
-          w-full
+          w-full 
           h-[70px]
           p-4
           text-white
           bg-[#213567]
-          gap-10 justify-items-center
+          gap-10
+          items-center
+          justify-between
+          shadow-xl
         "
       >
         <div
           className="
-            flex
-            flex-row
-            gap-5
-            border-2
-            border-amber-950
-            justify-items-center
+            flex flex-row
+            gap-20
+            items-center
+            transition duration-200
+            ml-8
           "
         >
-          <FaHome />
-          <span>Home</span>
-          <FaBell />
-          <span>Notification</span>
-          <FaShoppingCart />
-          <span>My Cart</span>
+          <FaHome size={25} className="cursor-pointer transition duration-400 hover:text-[#DDA853] " />
+          <FaBell size={25} className="cursor-pointer transition duration-400 hover:text-[#DDA853] " />
+          <FaShoppingCart size={25} className="cursor-pointer transition duration-400 hover:text-[#DDA853]" />
         </div>
         <div
           className="
             flex
-            items-center gap-2
+            flex-row
           "
         >
           <input
             type="text"
             placeholder="Search"
             className="
-              ml-80
+              w-[600px]
               px-4 py-1
               placeholder-gray-500 text-[14px] text-black
-              rounded-full
               bg-white
-              w-[600px]
+              rounded-2xl
             "
           />
         </div>
         <div
           className="
-          flex
-          flex-row
-          ml-30
+            flex flex-row
             h-11
             gap-5
+            mr-8
           "
         >
           <MdAccountCircle size={40} />
-          <span className="mt-2">User</span>
           <span
             className="
+              mt-2
+            "
+          >
+            User
+          </span>
+          <span
+            className="
+              mt-2 ml-10
               cursor-pointer
               underline
-              mt-2
-              ml-10
             "
           >
             Start selling here
@@ -116,11 +122,12 @@ function buyerDashboard() {
         {/* Product Grid */}
         <div
           className="
-            flex-1 grid grid-cols-2 overflow-auto
-            no-scrollbar
+            flex-1/3 grid grid-cols-2 overflow-auto
             h-180
-            mt-5 ml-2 mr-4
+            border-2
+            mt-15 ml-2 mr-4
             bg-[#FAEBD7]
+            no-scrollbar 
             gap-4
             md:grid-cols-4
             lg:grid-cols-4
