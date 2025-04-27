@@ -1,5 +1,6 @@
 import React from "react";
-import logo from "./assets/logo.png"; // saktoha path sa imong logo
+import logo from "./assets/logo.png"; 
+import { Link } from "react-router-dom";
 
 export default function Welcome() {
   return (
@@ -16,9 +17,15 @@ export default function Welcome() {
           Provide your necessary information and<br />
           register as a seller.
         </p>
-        <button className="mt-3 px-10 py-3 bg-[#22336c] text-white font-bold rounded-md text-[18px]">
+        <Link to="/login">
+        <button className="mt-3 px-10 py-3 bg-[#22336c] text-white font-bold text-[18px] rounded-md hover:scale-102 hover:bg-[#DDA853] hover:text-black">
+          LOGIN
+        </button>
+        </Link>
+        <button className="mt-3 px-10 py-3 bg-[#22336c] text-white font-bold text-[18px] rounded-md hover:scale-102 hover:bg-[#DDA853] hover:text-black">
           Start Registration
         </button>
+        
       </div>
     </div>
   );

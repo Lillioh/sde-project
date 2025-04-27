@@ -124,6 +124,7 @@ function App() {
                 mt-16
               "
             >
+              <Link to="/buyer-dashboard">
               <button
                 onClick={handleLogin}
                 className="
@@ -138,6 +139,7 @@ function App() {
               >
                 Login
               </button>
+              </Link>
             </div>
           </div>
         </div>

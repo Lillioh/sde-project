@@ -21,7 +21,7 @@ function ProfilePage() {
       {/* Navbar */}
       <div className="flex flex-row w-full h-[70px] p-4 text-white bg-[#213567] gap-10 items-center justify-between shadow-xl">
         <div className="flex flex-row gap-20 items-center ml-8">
-          <Link to="/dashboard">
+          <Link to="/buyer-dashboard">
             <FaHome size={25} className="cursor-pointer hover:text-[#DDA853]" />
           </Link>
           <FaBell size={25} className="cursor-pointer hover:text-[#DDA853]" />
