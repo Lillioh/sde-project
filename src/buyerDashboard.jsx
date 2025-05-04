@@ -1,15 +1,22 @@
 import { FaHome, FaBell, FaShoppingCart, FaChevronDown } from "react-icons/fa";
 import { MdAccountCircle } from "react-icons/md";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
-function buyerDashboard() {
+function BuyerDashboard() {
   const [showDropdown, setShowDropdown] = useState(false);
+  const navigate = useNavigate();
+  
   const products = Array(20).fill({
     name: "Sample Item",
     price: "₱123.45",
     image: "/img.jpg",
   });
+
+  const handleNavigation = (path) => {
+    setShowDropdown(false);
+    navigate(path);
+  };
 
   return (
     <div
@@ -44,6 +51,7 @@ function buyerDashboard() {
               cursor-pointer
               hover:text-[#DDA853]
             "
+            onClick={() => navigate('/')}
           />
           <FaBell
             size={25}
@@ -134,9 +142,8 @@ function buyerDashboard() {
                   absolute top-12 -right-3
                 "
               >
-                <Link
-                  to="/profile-page"
-                  onClick={() => setShowDropdown(false)}
+                <div
+                  onClick={() => handleNavigation('/profile')}
                   className="
                     block
                     py-2 px-4
@@ -145,8 +152,9 @@ function buyerDashboard() {
                   "
                 >
                   Profile Information
-                </Link>
+                </div>
                 <div
+                  onClick={() => handleNavigation('/address')}
                   className="
                     py-2 px-4
                     cursor-pointer
@@ -154,6 +162,7 @@ function buyerDashboard() {
                   "
                 >My Address</div>
                 <div
+                  onClick={() => handleNavigation('/purchase-history')}
                   className="
                     py-2 px-4
                     cursor-pointer
@@ -161,6 +170,7 @@ function buyerDashboard() {
                   "
                 >Purchase History</div>
                 <div
+                  onClick={() => handleNavigation('/my-shop')}
                   className="
                     py-2 px-4
                     cursor-pointer
@@ -168,6 +178,7 @@ function buyerDashboard() {
                   "
                 >My Shop</div>
                 <div
+                  onClick={() => handleNavigation('/logout')}
                   className="
                     py-2 px-4
                     text-red-500
@@ -288,6 +299,6 @@ function buyerDashboard() {
       </button>
     </div>
   );
-}
+} 
 
-export default buyerDashboard;
+export default BuyerDashboard;
