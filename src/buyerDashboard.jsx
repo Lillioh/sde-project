@@ -66,6 +66,7 @@ function BuyerDashboard() {
               cursor-pointer
               hover:text-[#DDA853]
             "
+            onClick={() => navigate('/cart')}
           />
         </div>
         
