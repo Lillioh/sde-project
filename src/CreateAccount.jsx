@@ -1,7 +1,10 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom"; // For navigation after submit
+import "./index.css";
 
 function CreateAccount() {
   const [step, setStep] = useState(1);
+  const navigate = useNavigate();
 
   // Step 1 State
   const [username, setUsername] = useState("");
@@ -14,15 +17,14 @@ function CreateAccount() {
   const [lastName, setLastName] = useState("");
   const [dob, setDob] = useState("");
   const [address, setAddress] = useState("");
+  const [gender, setGender] = useState(""); // State for gender
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     if (step === 1) {
-      // Proceed to step 2
       setStep(2);
     } else {
-      // Final form submission logic
       console.log({
         username,
         password,
@@ -31,8 +33,10 @@ function CreateAccount() {
         lastName,
         dob,
         address,
+        gender, // Include gender in the form data
       });
-      alert("Account created!");
+
+      navigate("/thank-you"); // 🔥 Redirect to thank you page
     }
   };
 
@@ -60,11 +64,11 @@ function CreateAccount() {
       <div
         className="
           flex flex-col
-          w-[550px] h-[700px]
+          w-[550px] h-[650px]
           p-8 mr-50
           bg-[#F9F9F9]
           rounded-3xl
-          shadow-2xl
+          shadow-2xl animate-fade-in
         "
       >
         <h1
@@ -109,17 +113,18 @@ function CreateAccount() {
           ></div>
         </div>
 
+        {/* Form Start */}
         <form
           onSubmit={handleSubmit}
           className="
             flex flex-col
             space-y-4
-            border-1 border-amber-300
             gap-2
           "
         >
           {step === 1 && (
             <>
+              {/* Username */}
               <div>
                 <label
                   className="
@@ -137,13 +142,15 @@ function CreateAccount() {
                   className="
                     w-full
                     px-4 py-2
-                    text-[14px]
-                    border-3 rounded-md
-                    shadow-[inset_0px_2px_3px_rgba(0,0,0,0.2)]
+                    text-[14px] text-gray-900 placeholder-gray-400
+                    border border-gray-300 rounded-md
+                    shadow-inner
+                    focus:border-blue-500 focus:outline-none
                   "
                 />
               </div>
 
+              {/* Password */}
               <div>
                 <label
                   className="
@@ -161,13 +168,15 @@ function CreateAccount() {
                   className="
                     w-full
                     px-4 py-2
-                    text-[14px]
-                    border-3 rounded-md
-                    shadow-[inset_0px_2px_3px_rgba(0,0,0,0.2)]
+                    text-[14px] text-gray-900 placeholder-gray-400
+                    border border-gray-300 rounded-md
+                    shadow-inner
+                    focus:border-blue-500 focus:outline-none
                   "
                 />
               </div>
 
+              {/* Confirm Password */}
               <div>
                 <label
                   className="
@@ -185,13 +194,15 @@ function CreateAccount() {
                   className="
                     w-full
                     px-4 py-2
-                    text-[14px]
-                    border-3 rounded-md
-                    shadow-[inset_0px_2px_3px_rgba(0,0,0,0.2)]
+                    text-[14px] text-gray-900 placeholder-gray-400
+                    border border-gray-300 rounded-md
+                    shadow-inner
+                    focus:border-blue-500 focus:outline-none
                   "
                 />
               </div>
 
+              {/* Email Address */}
               <div>
                 <label
                   className="
@@ -209,9 +220,10 @@ function CreateAccount() {
                   className="
                     w-full
                     px-4 py-2
-                    text-[14px]
-                    border-3 rounded-md
-                    shadow-[inset_0px_2px_3px_rgba(0,0,0,0.2)]
+                    text-[14px] text-gray-900 placeholder-gray-400
+                    border border-gray-300 rounded-md
+                    shadow-inner
+                    focus:border-blue-500 focus:outline-none
                   "
                 />
               </div>
@@ -220,6 +232,7 @@ function CreateAccount() {
 
           {step === 2 && (
             <>
+              {/* First Name */}
               <div>
                 <label
                   className="
@@ -237,13 +250,15 @@ function CreateAccount() {
                   className="
                     w-full
                     px-4 py-2
-                    text-[14px]
-                    border-3 rounded-md
-                    shadow-[inset_0px_2px_3px_rgba(0,0,0,0.2)]
+                    text-[14px] text-gray-900 placeholder-gray-400
+                    border border-gray-300 rounded-md
+                    shadow-inner
+                    focus:border-blue-500 focus:outline-none
                   "
                 />
               </div>
 
+              {/* Last Name */}
               <div>
                 <label
                   className="
@@ -261,36 +276,97 @@ function CreateAccount() {
                   className="
                     w-full
                     px-4 py-2
-                    text-[14px]
-                    border-3 rounded-md
-                    shadow-[inset_0px_2px_3px_rgba(0,0,0,0.2)]
+                    text-[14px] text-gray-900 placeholder-gray-400
+                    border border-gray-300 rounded-md
+                    shadow-inner
+                    focus:border-blue-500 focus:outline-none
                   "
                 />
               </div>
 
-              <div>
-                <label
+              {/* Year of Birth and Gender */}
+              <div
+                className="
+                  flex
+                  gap-4
+                "
+              >
+                {/* Year of Birth */}
+                <div
                   className="
-                    block
-                    text-sm font-medium text-gray-700 text-left
+                    flex flex-col
+                    w-1/2
+                    items-start
                   "
                 >
-                  Date of Birth
-                </label>
-                <input
-                  type="date"
-                  value={dob}
-                  onChange={(e) => setDob(e.target.value)}
+                  <label
+                    className="
+                      block
+                      mb-1
+                      text-sm font-medium text-gray-700 text-left
+                    "
+                  >
+                    Year of Birth
+                  </label>
+                  <input
+                    type="number"
+                    placeholder="YYYY"
+                    value={dob}
+                    onChange={(e) => {
+                      const value = e.target.value;
+                      if (value.length <= 4) setDob(value);
+                    }}
+                    min="1900"
+                    max="2099"
+                    className="
+                      w-full
+                      px-4 py-2
+                      text-[14px] text-gray-900 placeholder-gray-400
+                      border border-gray-300 rounded-md
+                      shadow-inner
+                      focus:border-blue-500 focus:outline-none
+                    "
+                  />
+                </div>
+
+                {/* Gender Dropdown */}
+                <div
                   className="
-                    w-full
-                    px-4 py-2
-                    text-[14px]
-                    border-3 rounded-md
-                    shadow-[inset_0px_2px_3px_rgba(0,0,0,0.2)]
+                    flex flex-col
+                    w-1/2
+                    items-start
                   "
-                />
+                >
+                  <label
+                    className="
+                      block
+                      mb-1
+                      text-sm font-medium text-gray-700 text-left
+                    "
+                  >
+                    Gender
+                  </label>
+                  <select
+                    value={gender}
+                    onChange={(e) => setGender(e.target.value)}
+                    className="
+                      w-full
+                      px-4 py-2
+                      text-[14px] text-gray-900 placeholder-gray-400
+                      border border-gray-300 rounded-md
+                      shadow-inner
+                      focus:border-blue-500 focus:outline-none
+                    "
+                  >
+                    <option value="">Select Gender</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
               </div>
 
+              {/* Address */}
               <div>
                 <label
                   className="
@@ -308,15 +384,17 @@ function CreateAccount() {
                   className="
                     w-full
                     px-4 py-2
-                    text-[14px]
-                    border-3 rounded-md
-                    shadow-[inset_0px_2px_3px_rgba(0,0,0,0.2)]
+                    text-[14px] text-gray-900 placeholder-gray-400
+                    border border-gray-300 rounded-md
+                    shadow-inner
+                    focus:border-blue-500 focus:outline-none
                   "
                 />
               </div>
             </>
           )}
 
+          {/* Submit Button */}
           <button
             type="submit"
             className="
@@ -345,6 +423,7 @@ function CreateAccount() {
             </button>
           )}
         </form>
+        {/* Form End */}
       </div>
     </div>
   );
