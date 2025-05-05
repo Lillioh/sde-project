@@ -12,6 +12,7 @@ import ProfilePage2 from "./ProfilePage2.jsx";
 import Welcome from "./WelcomePage.jsx";
 import ThankYouPage from "./ThankYouPage.jsx";
 import AddressPage from "./AddressPage.jsx";
+import PurchaseHistory from "./PurchaseHistory.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -27,6 +28,7 @@ createRoot(document.getElementById("root")).render(
         <Route path="/welcome" element={<Welcome />} />
         <Route path="/thank-you" element={<ThankYouPage />} />
         <Route path="/profile-page-address" element={<AddressPage />} />
+        <Route path="/purchase-history" element={<PurchaseHistory />} />
       </Routes>
     </BrowserRouter>
   </StrictMode>
