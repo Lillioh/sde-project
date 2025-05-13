@@ -1,17 +1,9 @@
 import { useState } from "react";
-import { FaHome, FaBell, FaShoppingCart, FaChevronDown } from "react-icons/fa";
-import { MdAccountCircle } from "react-icons/md";
-import { useNavigate } from "react-router-dom";
+import { FaShoppingCart } from "react-icons/fa";
+import Navbar from "./components/Navbar"; // Adjust the path if needed
 
 export default function PurchaseHistory() {
   const [activeTab, setActiveTab] = useState("purchased");
-  const [showDropdown, setShowDropdown] = useState(false);
-  const navigate = useNavigate();
-
-  const handleNavigation = (path) => {
-    setShowDropdown(false);
-    navigate(path);
-  };
 
   const renderTabContent = () => {
     let status = "";
@@ -27,7 +19,7 @@ export default function PurchaseHistory() {
         break;
       case "returned":
         status = "Returned";
-        break;
+        break;  
     }
 
     return (
@@ -77,91 +69,11 @@ export default function PurchaseHistory() {
 
   return (
     <div className="flex flex-col min-h-screen w-screen overflow-hidden bg-white font-sans">
-      {/* Navigation Bar */}
-      <div className="bg-[#213567] text-white w-full shadow-xl">
-        <div className="px-6 py-3 h-[70px] flex items-center">
-          <div className="flex justify-between items-center w-full">
-            <div className="flex space-x-20 items-center ml-8">
-              <div className="cursor-pointer hover:text-[#DDA853] transition duration-200" onClick={() => navigate('/')}>
-                <FaHome size={25} />
-              </div>
-              <div className="cursor-pointer hover:text-[#DDA853] transition duration-200">
-                <FaBell size={25} />
-              </div>
-              <div className="cursor-pointer hover:text-[#DDA853] transition duration-200">
-                <FaShoppingCart size={25} />
-              </div>
-            </div>
-
-            <div className="flex justify-center">
-              <div className="relative">
-                <input
-                  type="text"
-                  placeholder="Search"
-                  className="w-[600px] px-4 py-1 rounded-2xl placeholder-gray-500 text-[14px] text-black bg-white shadow-[inset_0px_2px_3px_rgba(0,0,0,0.2)] focus:outline-none focus:ring-1 focus:ring-[#ffa618]"
-                />
-              </div>
-            </div>
-
-            <div className="flex items-center space-x-6 mr-8 h-11">
-              <div className="relative">
-                <div
-                  onClick={() => setShowDropdown(!showDropdown)}
-                  className="flex cursor-pointer items-center gap-2"
-                >
-                  <MdAccountCircle size={40} />
-                  <div className="flex items-center gap-1">
-                    <span>User</span>
-                    <FaChevronDown
-                      size={16}
-                      className={`transition-transform transform duration-200 ${showDropdown ? "rotate-180" : ""}`}
-                    />
-                  </div>
-                </div>
-
-                {showDropdown && (
-                  <div className="z-50 w-48 py-2 text-black bg-white rounded-lg shadow-xl absolute top-12 -right-3">
-                    <div
-                      onClick={() => handleNavigation('/profile')}
-                      className="block py-2 px-4 cursor-pointer hover:bg-gray-100"
-                    >
-                      Profile Information
-                    </div>
-                    <div
-                      onClick={() => handleNavigation('/address')}
-                      className="py-2 px-4 cursor-pointer transition duration-150 ease-in-out hover:bg-gray-100"
-                    >
-                      My Address
-                    </div>
-                    <div className="py-2 px-4 cursor-pointer transition duration-150 ease-in-out hover:bg-gray-100 text-[#213567] font-medium">
-                      Purchase History
-                    </div>
-                    <div
-                      onClick={() => handleNavigation('/my-shop')}
-                      className="py-2 px-4 cursor-pointer transition duration-150 ease-in-out hover:bg-gray-100"
-                    >
-                      My Shop
-                    </div>
-                    <div
-                      onClick={() => handleNavigation('/logout')}
-                      className="py-2 px-4 text-red-500 cursor-pointer transition duration-150 ease-in-out hover:bg-gray-100"
-                    >
-                      Logout
-                    </div>
-                  </div>
-                )}
-              </div>
-              <span className="ml-4 cursor-pointer underline">
-                Start selling here
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
+      {/* Reusable Navbar */}
+      <Navbar />
 
       {/* Main Content */}
       <div className="flex flex-grow overflow-hidden w-full">
-        {/* Purchase History Container */}
         <div className="flex-grow p-4 overflow-y-auto">
           <div className="bg-white border border-gray-200 rounded-lg h-full overflow-hidden flex flex-col shadow-sm">
             <div className="px-4 py-3 border-b border-gray-200 font-medium">

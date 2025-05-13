@@ -57,7 +57,7 @@ const Navbar = () => {
               <div onClick={() => handleNavigation('/purchase-history')} className="py-2 px-4 cursor-pointer hover:bg-gray-100">
                 Purchase History
               </div>
-              <div onClick={() => handleNavigation('/buyer-dashboard')} className="py-2 px-4 cursor-pointer hover:bg-gray-100">
+              <div onClick={() => handleNavigation('/my-cart')} className="py-2 px-4 cursor-pointer hover:bg-gray-100">
                 My Shop
               </div>
               <div onClick={() => handleNavigation('/login')} className="py-2 px-4 text-red-500 cursor-pointer hover:bg-gray-100">
