@@ -30,14 +30,14 @@ function ProfilePage() {
               { label: "Phone Number", value: phoneNumber, setter: setPhoneNumber }
             ].map((field, idx) => (
               <div key={idx} className="flex flex-col">
-                <label className="mb-1 text-sm font-semibold text-gray-700">{field.label}</label>
+                <label className="mb-1 text-sm font-semibold text-gray-700 pl-3">{field.label}</label>
                 <input
                   type={field.label === "Email" ? "email" : "text"}
                   value={field.value}
                   onChange={(e) => field.setter(e.target.value)}
                   readOnly={field.readOnly}
                   placeholder={`Enter your ${field.label.toLowerCase()}`}
-                  className="w-full px-4 py-2 text-black border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-3 py-2 text-black border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
             ))}
@@ -45,22 +45,22 @@ function ProfilePage() {
             {/* Gender and DOB */}
             <div className="flex gap-4">
               <div className="flex flex-col w-1/2">
-                <label className="mb-1 text-sm font-semibold text-gray-700">Gender</label>
+                <label className="mb-1 text-sm font-semibold text-gray-700 pl-3">Gender</label>
                 <input
                   type="text"
                   value={gender}
                   onChange={(e) => setGender(e.target.value)}
                   placeholder="Enter your gender"
-                  className="w-full px-4 py-2 text-black border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-3 py-2 text-black border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
               <div className="flex flex-col w-1/2">
-                <label className="mb-1 text-sm font-semibold text-gray-700">Date of Birth</label>
+                <label className="mb-1 text-sm font-semibold text-gray-700 pl-3">Date of Birth</label>
                 <input
                   type="date"
                   value={dateOfBirth}
                   onChange={(e) => setDateOfBirth(e.target.value)}
-                  className="w-full px-4 py-2 text-black border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-3 py-2 text-black border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
             </div>

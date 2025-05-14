@@ -6,8 +6,7 @@ import Navbar from './components/Navbar';
 
 
 function BuyerDashboard() {
-  // eslint-disable-next-line no-empty-pattern
-  const [] = useState(false);
+  
   const [cart, setCart] = useState([]);
   const products = Array(20).fill({
     name: "Sample Item",

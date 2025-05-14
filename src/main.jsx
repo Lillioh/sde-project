@@ -16,6 +16,9 @@ import PurchaseHistory from "./PurchaseHistory.jsx";
 import ShoppingCart from "./ShoppingCart.jsx";
 import SellerReg from "./SellerReg.jsx";
 import ShopInfo from "./ShopInfo.jsx";
+import ShopInfoPage from "./ShopInfoPage.jsx";
+import ProductInfoPage from "./ProductInfoPage.jsx";
+import SellerRegistration from "./SellerRegistration.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -35,6 +38,9 @@ createRoot(document.getElementById("root")).render(
         <Route path="/my-cart" element={<ShoppingCart />} />
         <Route path="/seller-registration" element={<SellerReg />} />
         <Route path="/shop-info" element={<ShopInfo />} />
+        <Route path="/shop-info-page" element={<ShopInfoPage />} />
+        <Route path="/product-info" element={<ProductInfoPage />} />
+        <Route path="/reg" element={<SellerRegistration />} />
 
       </Routes>
     </BrowserRouter>
