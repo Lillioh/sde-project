@@ -59,8 +59,9 @@ function BuyerDashboard() {
 
       {/* Floating Cart Button */}
       <Link to="/my-cart" className="fixed bottom-10 right-10">
-        <button className="flex w-[125px] p-4 bg-[#F6B24D] rounded-xl shadow-lg items-center justify-center">
-          <FaShoppingCart size={30} color="black" />
+        <button className="flex w-[125px] p-4 bg-[#F6B24D] text-black rounded-xl shadow-lg items-center justify-center 
+          transition duration-300 ease-in-out hover:bg-black hover:text-[#F6B24D]">
+          <FaShoppingCart size={30} />
         </button>
       </Link>
     </div>
