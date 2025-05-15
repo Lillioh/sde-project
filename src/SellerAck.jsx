@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-function SellerReg() {
+function SellerAck() {
   const [formData] = useState({
     fullName: "",
     email: "",
@@ -53,8 +53,8 @@ function SellerReg() {
 
         {/* Subtitle */}
         <p className="text-center text-[#183B4E] text-shadow-lg mb-8">
-          Provide your necessary information and<br />
-          register as a seller.
+          Registration successful!<br/>
+          Start selling now!
         </p>
 
         {/* Button */}
@@ -62,11 +62,11 @@ function SellerReg() {
           onClick={handleSubmit}
           className="py-3 px-8 text-white font-bold bg-[#2b428f] rounded-md hover:bg-[#244258]"
         >
-          Start Selling Now!
+          Home
         </button>
       </div>
     </div>
   );
 }
 
-export default SellerReg;
+export default SellerAck;

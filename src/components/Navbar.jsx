@@ -57,7 +57,7 @@ const Navbar = () => {
           src={logo}
           alt="Logo"
           className="h-10 w-auto cursor-pointer"
-          onClick={() => navigate("/")}
+          onClick={() => navigate("/buyer-dashboard")}
         />
       </div>
 
