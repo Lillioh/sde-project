@@ -20,15 +20,6 @@ function SellerAck() {
 
   return (
     <div className="flex flex-col w-screen h-screen font-[Poppins][#F6B24D]">
-      {/* Header with Home button */}
-      <div className="p-4 absolute top-0 left-0">
-        <Link 
-          to="/" 
-          className="bg-[#183B4E] text-white px-3 py-1 rounded-md text-sm inline-block"
-        >
-          Home
-        </Link>
-      </div>
 
       {/* Main content */}
       <div className="flex flex-col items-center pt-8">
