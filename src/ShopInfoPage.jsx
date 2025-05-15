@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { Home } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import productImage from "./assets/img.jpg"; // ✅ Import your image
+import productImage from "./assets/img.jpg";
+import Navbar from "./components/Navbar";
 
 export default function ShopInfoPage() {
   const navigate = useNavigate();
@@ -15,20 +15,8 @@ export default function ShopInfoPage() {
 
   return (
     <div className="flex flex-col overflow-hidden w-screen h-screen font-sans">
-      {/* Top Navbar */}
-      <header className="bg-[#1a2f5d] text-white px-6 py-4 flex items-center justify-between shadow">
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-full bg-gray-300" />
-          <h1 className="text-lg font-medium">User's Shop Information</h1>
-        </div>
-        <div
-          className="flex items-center gap-2 cursor-pointer"
-          onClick={() => navigate("/")}
-        >
-          <Home size={20} />
-          <span className="text-sm">Home</span>
-        </div>
-      </header>
+      
+      <Navbar />
 
       {/* Main Section */}
       <main className="flex-1 overflow-auto bg-[#FAEBD7] p-8 flex justify-center items-start">

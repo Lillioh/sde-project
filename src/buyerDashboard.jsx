@@ -1,12 +1,9 @@
-import { FaHome, FaBell, FaShoppingCart, FaChevronDown } from "react-icons/fa";
-import { MdAccountCircle } from "react-icons/md";
+import { FaShoppingCart } from "react-icons/fa";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import Navbar from './components/Navbar';
 
-
 function BuyerDashboard() {
-  
   const [cart, setCart] = useState([]);
   const products = Array(20).fill({
     name: "Sample Item",
@@ -14,7 +11,6 @@ function BuyerDashboard() {
     image: "/src/assets/img.jpg",
   });
 
-  // Handle adding product to the cart
   const handleAddToCart = (product) => {
     setCart([...cart, product]);
     console.log("Product added to cart:", product);
@@ -61,9 +57,12 @@ function BuyerDashboard() {
         </div>
       </div>
 
-      <button className="flex w-[125px] p-4 bg-[#F6B24D] rounded-xl shadow-lg fixed bottom-10 right-10 items-center justify-center">
-        <FaShoppingCart size={30} color="black" />
-      </button>
+      {/* Floating Cart Button */}
+      <Link to="/my-cart" className="fixed bottom-10 right-10">
+        <button className="flex w-[125px] p-4 bg-[#F6B24D] rounded-xl shadow-lg items-center justify-center">
+          <FaShoppingCart size={30} color="black" />
+        </button>
+      </Link>
     </div>
   );
 }

@@ -23,7 +23,7 @@ export default function PurchaseHistory() {
     }
 
     return (
-      <div className="w-full flex flex-col justify-between flex-grow overflow-y-auto text-sm">
+      <div className="w-full flex flex-col justify-between flex-grow overflow-y-auto text-sm bg-amber-200">
         <div>
           <div className="flex justify-between items-center py-3 px-5 bg-gray-100 text-gray-700">
             <button className="flex items-center bg-gray-200 text-gray-800 px-3 py-1.5 rounded text-sm font-medium hover:bg-gray-300 transition duration-200">
@@ -71,7 +71,7 @@ export default function PurchaseHistory() {
     <div className="flex flex-col min-h-screen w-screen overflow-hidden bg-white font-sans">
       {/* Reusable Navbar */}
       <Navbar />
-
+ 
       {/* Main Content */}
       <div className="flex flex-grow overflow-hidden w-full">
         <div className="flex-grow p-4 overflow-y-auto">

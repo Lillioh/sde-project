@@ -1,9 +1,10 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";  // Import useNavigate
 import Navbar from "./components/Navbar";
 
 function SellerRegistration() {
-  // eslint-disable-next-line no-empty-pattern
-  const [] = useState("User");
+  const navigate = useNavigate();  // Initialize the navigate function
+
   return (
     <div className="flex flex-col overflow-hidden w-screen h-screen font-sans">
       {/* Navbar component */}
@@ -22,6 +23,7 @@ function SellerRegistration() {
               <button 
                 type="button"
                 className="px-8 py-3 text-white bg-[#213567] rounded-md hover:bg-[#1a2c4d] font-medium text-lg"
+                onClick={() => navigate('/seller-registration')}  // Link to /seller-registration
               >
                 Start Registration
               </button>

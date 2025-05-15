@@ -285,86 +285,59 @@ function CreateAccount() {
               </div>
 
               {/* Year of Birth and Gender */}
-              <div
-                className="
-                  flex
-                  gap-4
-                "
-              >
-                {/* Year of Birth */}
-                <div
-                  className="
-                    flex flex-col
-                    w-1/2
-                    items-start
-                  "
-                >
-                  <label
-                    className="
-                      block
-                      mb-1
-                      text-sm font-medium text-gray-700 text-left
-                    "
-                  >
-                    Year of Birth
-                  </label>
-                  <input
-                    type="number"
-                    placeholder="YYYY"
-                    value={dob}
-                    onChange={(e) => {
-                      const value = e.target.value;
-                      if (value.length <= 4) setDob(value);
-                    }}
-                    min="1900"
-                    max="2099"
-                    className="
-                      w-full
-                      px-4 py-2
-                      text-[14px] text-gray-900 placeholder-gray-400
-                      border border-gray-300 rounded-md
-                      shadow-inner
-                      focus:border-blue-500 focus:outline-none
-                    "
-                  />
-                </div>
+              {/* Birth Date and Gender */}
+<div className="flex gap-4">
+  {/* Birth Date */}
+  <div className="flex flex-col w-1/2 items-start">
+    <label
+      className="
+        block mb-1 text-sm font-medium text-gray-700 text-left
+      "
+    >
+      Birth Date
+    </label>
+    <input
+      type="date"
+      value={dob}
+      onChange={(e) => setDob(e.target.value)}
+      className="
+        w-full px-4 py-2
+        text-[14px] text-gray-900 placeholder-gray-400
+        border border-gray-300 rounded-md
+        shadow-inner
+        focus:border-blue-500 focus:outline-none
+      "
+    />
+  </div>
 
-                {/* Gender Dropdown */}
-                <div
-                  className="
-                    flex flex-col
-                    w-1/2
-                    items-start
-                  "
-                >
-                  <label
-                    className="
-                      block
-                      mb-1
-                      text-sm font-medium text-gray-700 text-left
-                    "
-                  >
-                    Gender
-                  </label>
-                  <select
-                    value={gender}
-                    onChange={(e) => setGender(e.target.value)}
-                    className="
-                      w-full
-                      px-4 py-2
-                      text-[14px] text-gray-900 placeholder-gray-400
-                      border border-gray-300 rounded-md
-                      shadow-inner
-                      focus:border-blue-500 focus:outline-none
-                    "
-                  >
-                    <option value="">Select Gender</option>
-                    <option value="Male">Male</option>
-                    <option value="Female">Female</option>
-                    <option value="Other">Other</option>
-                  </select>
-                </div>
-              </div>
+  {/* Gender Dropdown */}
+  <div className="flex flex-col w-1/2 items-start">
+    <label
+      className="
+        block mb-1 text-sm font-medium text-gray-700 text-left
+      "
+    >
+      Gender
+    </label>
+    <select
+      value={gender}
+      onChange={(e) => setGender(e.target.value)}
+      className="
+        w-full px-4 py-2
+        text-[14px] text-gray-900 placeholder-gray-400
+        border border-gray-300 rounded-md
+        shadow-inner
+        focus:border-blue-500 focus:outline-none
+      "
+    >
+      <option value="">Select Gender</option>
+      <option value="Male">Male</option>
+      <option value="Female">Female</option>
+      <option value="Other">Other</option>
+    </select>
+  </div>
+</div>
+
 
               {/* Address */}
               <div>

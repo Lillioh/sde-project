@@ -93,14 +93,14 @@ export default function ShoppingCart() {
   );
 
   return (
-    <div className="flex flex-col min-h-screen w-screen overflow-hidden bg-white font-sans">
+    <div className="flex flex-col min-h-screen w-screen overflow-hidden bg-[#F5EEDC] font-sans">
 
       <Navbar />
 
       {/* Main Content */}
       <div className="flex flex-grow">
         <div className="flex-grow p-6 bg-gray-50">
-          <div className="bg-white border border-amber-100 rounded-sm shadow-sm overflow-hidden mx-auto max-w-6xl">
+          <div className="bg-white border rounded-sm shadow-sm overflow-hidden mx-auto max-w-6xl">
             <div className="p-4 border-b border-gray-200">
               <label className="flex items-center">
                 <input type="checkbox" className="mr-2" />

@@ -110,14 +110,15 @@ function App() {
               >
                 Create account
               </Link>
-              <a
-                href="#"
+              <Link
+                to="/forgot-password"
                 className="
                   hover:underline
                 "
               >
                 Forgot Password?
-              </a>
+              </Link>
+
             </div>
 
             <div
