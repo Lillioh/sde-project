@@ -20,6 +20,8 @@ import ShopInfoPage from "./ShopInfoPage.jsx";
 import ProductInfoPage from "./ProductInfoPage.jsx";
 import SellerRegistration from "./SellerRegistration.jsx";
 import NotFound from "./NotFound.jsx";
+import AdLogin from "./AdLogin.jsx";
+import AdDashboard from "./AdDashboard.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -43,6 +45,8 @@ createRoot(document.getElementById("root")).render(
         <Route path="/product-info" element={<ProductInfoPage />} />
         <Route path="/reg" element={<SellerRegistration />} />
         <Route path="/*" element={<NotFound />} />
+        <Route path="/admin-login" element={<AdLogin />} />
+        <Route path="/admin-Dashboard" element={<AdDashboard />} /> 
 
       </Routes>
     </BrowserRouter>
