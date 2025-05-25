@@ -22,6 +22,7 @@ import SellerRegistration from "./SellerRegistration.jsx";
 import NotFound from "./NotFound.jsx";
 import AdLogin from "./AdLogin.jsx";
 import AdDashboard from "./AdDashboard.jsx";
+import ShopInfoEdit from "./ShopInfoEdit.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -47,6 +48,7 @@ createRoot(document.getElementById("root")).render(
         <Route path="/*" element={<NotFound />} />
         <Route path="/admin-login" element={<AdLogin />} />
         <Route path="/admin-Dashboard" element={<AdDashboard />} /> 
+        <Route path="/shop-info-edit" element={<ShopInfoEdit />} />
 
       </Routes>
     </BrowserRouter>

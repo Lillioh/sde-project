@@ -1,0 +1,164 @@
+.pageWrapper {
+  height: 100vh;
+  width: 100vw;
+  font-family: 'Poppins', sans-serif;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.shopProfileContainer {
+  flex: 1;
+  background-color: #f8f5ea;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.shopProfileCard {
+  background-color: white;
+  border-radius: 15px;
+  padding: 30px;
+  width: 100%;
+  max-width: 800px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e6e0cd;
+  font-family: Arial, sans-serif;
+  box-sizing: border-box;
+}
+
+.shopProfileTitle {
+  text-align: center;
+  margin-bottom: 40px;
+  font-size: 28px;
+  font-weight: bold;
+  color: #333;
+}
+
+.profileForm {
+  width: 100%;
+}
+
+.formRow {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  gap: 20px;
+  width: 100%;
+}
+
+.formGroup {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+}
+
+label {
+  margin-bottom: 8px;
+  font-size: 14px;
+  color: #333;
+  width: 100%;
+  padding: 0;
+  margin-left: 0;
+  text-align: left;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"] {
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+  width: 100%;
+  height: 40px;
+  color: #000;
+  box-sizing: border-box;
+}
+
+.fileInput {
+  display: none;
+}
+
+.fileInputWrapper {
+  position: relative;
+}
+
+.uploadButton {
+  width: 100%;
+  padding: 10px;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  text-align: center;
+  cursor: pointer;
+  height: 40px;
+  color: #000;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+.phoneInput {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  overflow: hidden;
+  height: 40px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.phonePrefix {
+  background-color: white;
+  padding: 10px 8px;
+  color: #666;
+  font-size: 14px;
+  border-right: 1px solid #ccc;
+}
+
+.phoneNumberInput {
+  flex: 1;
+  border: none;
+  padding: 10px;
+  height: 100%;
+  color: #000;
+  box-sizing: border-box;
+}
+
+.phoneNumberInput:focus {
+  outline: none;
+}
+
+.submitContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.submitButton {
+  background-color: #1e3a6d;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 12px 50px;
+  font-size: 16px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+@media (max-width: 768px) {
+  .formRow {
+    flex-direction: column;
+  }
+
+  .shopProfileCard {
+    padding: 20px;
+  }
+}
