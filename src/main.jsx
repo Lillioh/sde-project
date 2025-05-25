@@ -19,6 +19,7 @@ import ShopInfo from "./ShopInfo.jsx";
 import ShopInfoPage from "./ShopInfoPage.jsx";
 import ProductInfoPage from "./ProductInfoPage.jsx";
 import SellerRegistration from "./SellerRegistration.jsx";
+import NotFound from "./NotFound.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -41,6 +42,7 @@ createRoot(document.getElementById("root")).render(
         <Route path="/shop-info-page" element={<ShopInfoPage />} />
         <Route path="/product-info" element={<ProductInfoPage />} />
         <Route path="/reg" element={<SellerRegistration />} />
+        <Route path="/*" element={<NotFound />} />
 
       </Routes>
     </BrowserRouter>

@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { Home } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import productImage from "./assets/img.jpg"; // ✅ Import your image
-
+import productImage from "./assets/img.jpg"; 
 export default function ShopInfoPage() {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("customize");
