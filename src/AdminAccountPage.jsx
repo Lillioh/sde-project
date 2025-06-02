@@ -39,35 +39,13 @@ export default function AdminAccountPage() {
         <div className="flex items-center justify-between max-w-7xl mx-auto">
           {/* Left side - USTP Logo */}
           <div className="flex flex-col items-center">
-            <img 
-              src="/src/assets/logo.png" 
-              alt="USTP Logo" 
-              className="h-16 w-16 object-contain mb-2"
-              onError={(e) => {
-                // Fallback to original design if image fails to load
-                e.target.style.display = 'none';
-                e.target.nextElementSibling.style.display = 'block';
-              }}
-            />
-            {/* Fallback logo design */}
-            <div className="hidden" style={{display: 'none'}}>
-              <div className="relative w-16 h-16 mb-2">
-                {/* Orange circle background */}
-                <div className="absolute inset-0 rounded-full border-4 border-orange-400"></div>
-                {/* Blue graduation cap */}
-                <div className="absolute top-1 left-3 w-8 h-6 bg-blue-800 transform rotate-12 rounded-sm"></div>
-                <div className="absolute top-0 right-2 w-3 h-3 bg-orange-400 transform rotate-45"></div>
-                {/* Blue figure/person */}
-                <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2">
-                  <div className="w-6 h-6 bg-blue-800 rounded-full relative">
-                    <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-8 h-6 bg-blue-800 rounded-t-full"></div>
-                  </div>
-                </div>
-                {/* Orange decorative elements */}
-                <div className="absolute top-3 right-1 w-2 h-2 bg-orange-400 rounded-full"></div>
-              </div>
+            <div className="relative w-16 h-16 mb-2">
+              <img
+                src="/src/assets/logo.png"
+                alt="USTP Logo"
+                className="absolute inset-0 w-full h-full object-contain rounded-full border-4 border-orange-400"
+              />
             </div>
-            {/* Title under logo */}
             <div className="text-center">
               <h1 className="text-lg font-bold text-blue-900 leading-tight">USTP MARKETPLACE</h1>
               <h2 className="text-sm font-semibold text-blue-900">FOR STUDENTS</h2>
