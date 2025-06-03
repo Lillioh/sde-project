@@ -23,10 +23,11 @@ import NotFound from "./NotFound.jsx";
 import AdLogin from "./AdLogin.jsx";
 import AdDashboard from "./AdDashboard.jsx";
 import ShopInfoEdit from "./ShopInfoEdit.jsx";
-import AdminAccount from "./AdminAccountPage.jsx";
+import AdminProfile from "./AdminProfilePage.jsx";
 import AllNotificationsPage from "./AllNotificationsPage.jsx";
 import CreateAdminAccount from "./CreateAdminAccount.jsx";
 import AdminShopViewPage from "./AdminShopViewPage.jsx";
+import AdminAccountPage from "./AdminAccountPage.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -53,10 +54,11 @@ createRoot(document.getElementById("root")).render(
         <Route path="/admin-login" element={<AdLogin />} />
         <Route path="/admin-Dashboard" element={<AdDashboard />} /> 
         <Route path="/shop-info-edit" element={<ShopInfoEdit />} />
-        <Route path="/admin-account" element={<AdminAccount />} />
+        <Route path="/admin-profile" element={<AdminProfile />} />
         <Route path="all-notif" element={<AllNotificationsPage />} />
         <Route path="admin-createAcc" element={<CreateAdminAccount />} />
         <Route path="admin-viewShop" element={<AdminShopViewPage />} />
+        <Route path="admin-account" element={<AdminAccountPage />} />
 
       </Routes>
     </BrowserRouter>

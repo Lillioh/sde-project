@@ -268,10 +268,10 @@ export default function AllNotificationsPage() {
               {showUserDropdown && (
                 <div className="absolute top-full right-0 mt-2 w-48 bg-white/95 backdrop-blur-md rounded-xl shadow-xl border border-gray-200/50 z-50">
                   <div className="py-2">
-                    <button className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50/50 transition-colors">
+                    <button className="w-full text-left px-4 py-2 text-sm text-gray-700 font-medium hover:bg-gray-50/50 transition-colors">
                       Profile
                     </button>
-                    <button className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50/50 transition-colors">
+                    <button className="w-full text-left px-4 py-2 text-sm text-gray-700 font-medium hover:bg-blue-50/50 transition-colors">
                       Account
                     </button>
                     <hr className="my-1 border-gray-200/50" />

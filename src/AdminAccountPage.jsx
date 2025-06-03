@@ -1,81 +1,96 @@
 import { useState } from 'react';
 
 export default function AdminAccountPage() {
-  const [isEditMode, setIsEditMode] = useState(false);
   const [showUserDropdown, setShowUserDropdown] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
-  const [profileImage, setProfileImage] = useState(null);
   const [formData, setFormData] = useState({
-    name: '',
-    address: '',
-    email: '',
-    mobile: '+639',
+    currentPassword: '',
+    newPassword: '',
+    confirmPassword: '',
   });
   const [errors, setErrors] = useState({});
-  const [showImageError, setShowImageError] = useState(false);
+  const [showPasswords, setShowPasswords] = useState({
+    current: false,
+    new: false,
+    confirm: false
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleInputChange = (field, value) => {
-    if (field === 'mobile') {
-      // Ensure mobile always starts with +639
-      if (!value.startsWith('+639')) {
-        value = '+639';
-      }
-      
-      // Only allow numbers after +639
-      const numberPart = value.slice(4);
-      if (numberPart && !/^\d*$/.test(numberPart)) {
-        setErrors(prev => ({
-          ...prev,
-          mobile: 'Please enter a valid mobile number starting with +639...'
-        }));
-        return;
-      } else {
-        setErrors(prev => {
-          const newErrors = { ...prev };
-          delete newErrors.mobile;
-          return newErrors;
-        });
-      }
-      
-      // Limit total length (including +639)
-      if (value.length > 13) {
-        value = value.slice(0, 13);
-      }
-    }
-    
     setFormData(prevData => ({
       ...prevData,
       [field]: value
     }));
-  };
-
-  const handleImageUpload = (event) => {
-    if (!isEditMode) {
-      setShowImageError(true);
-      setTimeout(() => setShowImageError(false), 4000);
-      return;
-    }
     
-    const file = event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        setProfileImage(e.target.result);
-      };
-      reader.readAsDataURL(file);
+    // Clear errors when user starts typing
+    if (errors[field]) {
+      setErrors(prev => {
+        const newErrors = { ...prev };
+        delete newErrors[field];
+        return newErrors;
+      });
     }
   };
 
-  const handleSubmit = () => {
-    setIsEditMode(false);
-    setErrors({});
-    // Handle form submission logic here
+  const togglePasswordVisibility = (field) => {
+    setShowPasswords(prev => ({
+      ...prev,
+      [field]: !prev[field]
+    }));
+  };
+
+  const validateForm = () => {
+    const newErrors = {};
+
+    if (!formData.currentPassword) {
+      newErrors.currentPassword = 'Current password is required';
+    }
+
+    if (!formData.newPassword) {
+      newErrors.newPassword = 'New password is required';
+    } else if (formData.newPassword.length < 8) {
+      newErrors.newPassword = 'Password must be at least 8 characters long';
+    }
+
+    if (!formData.confirmPassword) {
+      newErrors.confirmPassword = 'Please confirm your new password';
+    } else if (formData.newPassword !== formData.confirmPassword) {
+      newErrors.confirmPassword = 'Passwords do not match';
+    }
+
+    if (formData.currentPassword === formData.newPassword) {
+      newErrors.newPassword = 'New password must be different from current password';
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleSubmit = async () => {
+    if (!validateForm()) return;
+
+    setIsSubmitting(true);
+    
+    // Simulate API call
+    setTimeout(() => {
+      setIsSubmitting(false);
+      // Reset form on success
+      setFormData({
+        currentPassword: '',
+        newPassword: '',
+        confirmPassword: '',
+      });
+      alert('Password changed successfully!');
+    }, 2000);
   };
 
   const handleCancel = () => {
-    setIsEditMode(false);
+    setFormData({
+      currentPassword: '',
+      newPassword: '',
+      confirmPassword: '',
+    });
     setErrors({});
-    // Reset form data if needed
   };
 
   return (
@@ -149,14 +164,14 @@ export default function AdminAccountPage() {
               {showUserDropdown && (
                 <div className="absolute top-full right-0 mt-2 w-48 bg-white/95 backdrop-blur-md rounded-xl shadow-xl border border-gray-200/50 z-50">
                   <div className="py-2">
-                    <button className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50/50 transition-colors">
+                    <button className="w-full text-left px-4 py-2 text-sm text-gray-700 font-medium hover:bg-gray-50/50 transition-colors">
                       Profile
                     </button>
-                    <button className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50/50 transition-colors">
+                    <button className="w-full text-left px-4 py-2 text-sm text-blue-600 font-medium hover:bg-blue-50/50 transition-colors">
                       Account
                     </button>
                     <hr className="my-1 border-gray-200/50" />
-                    <button className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50/50 transition-colors">
+                    <button className="w-full text-left px-4 py-2 text-sm text-red-600  hover:bg-red-50/50 transition-colors">
                       Log out
                     </button>
                   </div>
@@ -180,132 +195,152 @@ export default function AdminAccountPage() {
 
             <div className="flex-1 min-w-0">
               <div className="bg-white/80 backdrop-blur-md rounded-3xl shadow-xl border border-gray-200/50 p-8 h-full">
-                <div className="flex gap-8 h-full">
-                  <div className="flex flex-col items-center flex-shrink-0">
-                    <div className="w-72 h-96 border-2 border-dashed border-gray-300 rounded-3xl flex flex-col items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100/50 backdrop-blur-sm relative overflow-hidden">
-                      {profileImage ? (
-                        <img 
-                          src={profileImage} 
-                          alt="Profile" 
-                          className="w-full h-full object-cover rounded-3xl"
-                        />
-                      ) : (
-                        <>
-                          <svg className="w-16 h-16 text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                          </svg>
-                          <span className="text-sm text-gray-500 font-medium">
-                            {isEditMode ? 'Add Image' : 'Edit Profile to Add Image'}
-                          </span>
-                        </>
-                      )}
-                      {isEditMode && (
-                        <input
-                          type="file"
-                          accept="image/*"
-                          onChange={handleImageUpload}
-                          className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-                        />
-                      )}
-                    </div>
-                    {showImageError && (
-                      <div className="mt-3 text-sm text-red-600 bg-red-50 px-3 py-2 rounded-lg border border-red-200">
-                        Please click 'Edit Profile' before updating your profile picture.
-                      </div>
-                    )}
+                <div className="max-w-md mx-auto">
+                  <div className="text-center mb-8">
+                    <h2 className="text-2xl font-bold text-gray-800 mb-2">Account Settings</h2>
+                    <p className="text-sm text-gray-600">Change your password to keep your account secure</p>
                   </div>
 
-                  <div className="flex-1 space-y-4 max-w-md">
+                  <div className="space-y-6">
                     <div className="space-y-2">
-                      <label className="block text-sm font-semibold text-gray-700">Name</label>
-                      <input
-                        type="text"
-                        value={formData.name}
-                        onChange={(e) => handleInputChange('name', e.target.value)}
-                        placeholder="Enter your full name"
-                        disabled={!isEditMode}
-                        className="w-full px-4 py-3 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-300 placeholder-gray-400 bg-white/50 backdrop-blur-sm transition-all duration-200 text-gray-900 disabled:bg-gray-100 disabled:text-gray-700 disabled:cursor-not-allowed"
-                      />
-                    </div>
-
-                    <div className="space-y-2">
-                      <label className="block text-sm font-semibold text-gray-700">Address</label>
-                      <input
-                        type="text"
-                        value={formData.address}
-                        onChange={(e) => handleInputChange('address', e.target.value)}
-                        placeholder="Enter your complete address"
-                        disabled={!isEditMode}
-                        className="w-full px-4 py-3 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-300 placeholder-gray-400 bg-white/50 backdrop-blur-sm transition-all duration-200 text-gray-900 disabled:bg-gray-100 disabled:text-gray-700 disabled:cursor-not-allowed"
-                      />
-                    </div>
-
-                    <div className="space-y-2">
-                      <label className="block text-sm font-semibold text-gray-700">Email</label>
-                      <input
-                        type="email"
-                        value={formData.email}
-                        onChange={(e) => handleInputChange('email', e.target.value)}
-                        placeholder="Enter your email address"
-                        disabled={!isEditMode}
-                        className="w-full px-4 py-3 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-300 placeholder-gray-400 bg-white/50 backdrop-blur-sm transition-all duration-200 text-gray-900 disabled:bg-gray-100 disabled:text-gray-700 disabled:cursor-not-allowed"
-                      />
-                    </div>
-
-                    <div className="space-y-2">
-                      <label className="block text-sm font-semibold text-gray-700">Mobile(#)</label>
-                      <input
-                        type="tel"
-                        value={formData.mobile}
-                        onChange={(e) => handleInputChange('mobile', e.target.value)}
-                        placeholder="Enter your mobile number"
-                        disabled={!isEditMode}
-                        onKeyDown={(e) => {
-                          // Prevent deletion of +639 prefix
-                          if ((e.key === 'Backspace' || e.key === 'Delete') && 
-                              e.target.selectionStart <= 4 && e.target.selectionEnd <= 4) {
-                            e.preventDefault();
-                          }
-                        }}
-                        onFocus={(e) => {
-                          // Set cursor after +639 if field is empty beyond prefix
-                          if (e.target.value === '+639') {
-                            setTimeout(() => e.target.setSelectionRange(4, 4), 0);
-                          }
-                        }}
-                        className="w-full px-4 py-3 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-300 placeholder-gray-400 bg-white/50 backdrop-blur-sm transition-all duration-200 text-gray-900 disabled:bg-gray-100 disabled:text-gray-700 disabled:cursor-not-allowed"
-                      />
-                      {errors.mobile && (
-                        <div className="text-sm text-red-600 bg-red-50 px-3 py-2 rounded-lg border border-red-200">
-                          {errors.mobile}
-                        </div>
-                      )}
-                    </div>
-
-                    <div className="pt-6">
-                      {!isEditMode ? (
+                      <label className="block text-sm font-semibold text-gray-700">Current Password</label>
+                      <div className="relative">
+                        <input
+                          type={showPasswords.current ? "text" : "password"}
+                          value={formData.currentPassword}
+                          onChange={(e) => handleInputChange('currentPassword', e.target.value)}
+                          placeholder="Enter your current password"
+                          className="w-full px-4 py-3 pr-12 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-300 placeholder-gray-400 bg-white/50 backdrop-blur-sm transition-all duration-200 text-gray-900"
+                        />
                         <button
-                          onClick={() => setIsEditMode(true)}
-                          className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white px-8 py-3 rounded-xl text-sm font-semibold shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105"
+                          type="button"
+                          onClick={() => togglePasswordVisibility('current')}
+                          className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
                         >
-                          Edit Profile
+                          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            {showPasswords.current ? (
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L3 3m6.878 6.878L21 21" />
+                            ) : (
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                            )}
+                          </svg>
                         </button>
-                      ) : (
-                        <div className="flex gap-4">
-                          <button
-                            onClick={handleSubmit}
-                            className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white px-8 py-3 rounded-xl text-sm font-semibold shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105"
-                          >
-                            Save Changes
-                          </button>
-                          <button
-                            onClick={handleCancel}
-                            className="bg-gradient-to-r from-gray-300 to-gray-400 hover:from-gray-400 hover:to-gray-500 text-gray-700 px-8 py-3 rounded-xl text-sm font-semibold shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105"
-                          >
-                            Cancel
-                          </button>
+                      </div>
+                      {errors.currentPassword && (
+                        <div className="text-sm text-red-600 bg-red-50 px-3 py-2 rounded-lg border border-red-200">
+                          {errors.currentPassword}
                         </div>
                       )}
+                    </div>
+
+                    <div className="space-y-2">
+                      <label className="block text-sm font-semibold text-gray-700">New Password</label>
+                      <div className="relative">
+                        <input
+                          type={showPasswords.new ? "text" : "password"}
+                          value={formData.newPassword}
+                          onChange={(e) => handleInputChange('newPassword', e.target.value)}
+                          placeholder="Enter your new password"
+                          className="w-full px-4 py-3 pr-12 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-300 placeholder-gray-400 bg-white/50 backdrop-blur-sm transition-all duration-200 text-gray-900"
+                        />
+                        <button
+                          type="button"
+                          onClick={() => togglePasswordVisibility('new')}
+                          className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                        >
+                          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            {showPasswords.new ? (
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L3 3m6.878 6.878L21 21" />
+                            ) : (
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                            )}
+                          </svg>
+                        </button>
+                      </div>
+                      {errors.newPassword && (
+                        <div className="text-sm text-red-600 bg-red-50 px-3 py-2 rounded-lg border border-red-200">
+                          {errors.newPassword}
+                        </div>
+                      )}
+                      <div className="text-xs text-gray-500 mt-1">
+                        Password must be at least 8 characters long
+                      </div>
+                    </div>
+
+                    <div className="space-y-2">
+                      <label className="block text-sm font-semibold text-gray-700">Confirm New Password</label>
+                      <div className="relative">
+                        <input
+                          type={showPasswords.confirm ? "text" : "password"}
+                          value={formData.confirmPassword}
+                          onChange={(e) => handleInputChange('confirmPassword', e.target.value)}
+                          placeholder="Confirm your new password"
+                          className="w-full px-4 py-3 pr-12 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-300 placeholder-gray-400 bg-white/50 backdrop-blur-sm transition-all duration-200 text-gray-900"
+                        />
+                        <button
+                          type="button"
+                          onClick={() => togglePasswordVisibility('confirm')}
+                          className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                        >
+                          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            {showPasswords.confirm ? (
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L3 3m6.878 6.878L21 21" />
+                            ) : (
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                            )}
+                          </svg>
+                        </button>
+                      </div>
+                      {errors.confirmPassword && (
+                        <div className="text-sm text-red-600 bg-red-50 px-3 py-2 rounded-lg border border-red-200">
+                          {errors.confirmPassword}
+                        </div>
+                      )}
+                    </div>
+
+                    <div className="pt-6 flex gap-4">
+                      <button
+                        type="button"
+                        onClick={handleSubmit}
+                        disabled={isSubmitting}
+                        className="flex-1 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 disabled:from-gray-400 disabled:to-gray-400 text-white px-8 py-3 rounded-xl text-sm font-semibold shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105 disabled:transform-none disabled:cursor-not-allowed"
+                      >
+                        {isSubmitting ? (
+                          <div className="flex items-center justify-center">
+                            <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>
+                            Updating...
+                          </div>
+                        ) : (
+                          'Update Password'
+                        )}
+                      </button>
+                      <button
+                        type="button"
+                        onClick={handleCancel}
+                        disabled={isSubmitting}
+                        className="flex-1 bg-gradient-to-r from-gray-300 to-gray-400 hover:from-gray-400 hover:to-gray-500 disabled:from-gray-200 disabled:to-gray-200 text-gray-700 disabled:text-gray-400 px-8 py-3 rounded-xl text-sm font-semibold shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105 disabled:transform-none disabled:cursor-not-allowed"
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                  </div>
+
+                  <div className="mt-8 p-4 bg-blue-50/50 rounded-xl border border-blue-100/50">
+                    <div className="flex items-start space-x-3">
+                      <svg className="w-5 h-5 text-blue-600 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                      <div>
+                        <h4 className="text-sm font-semibold text-blue-800 mb-1">Security Tips</h4>
+                        <ul className="text-xs text-blue-700 space-y-1">
+                          <li>• Use a strong password with letters, numbers, and symbols</li>
+                          <li>• Don't reuse passwords from other accounts</li>
+                          <li>• Change your password regularly</li>
+                        </ul>
+                      </div>
                     </div>
                   </div>
                 </div>
