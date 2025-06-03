@@ -273,7 +273,7 @@ const UserProfileModal = ({ user, isOpen, onClose, onStatusChange }) => {
 // Users Table Component
 const UsersTable = ({ searchTerm, setSearchTerm }) => {
   const [users, setUsers] = useState([
-    { id: 1, name: 'John Doe', email: 'john@ustp.edu.ph', role: 'Student', status: 'Active', joinDate: '2024-01-15' },
+    { id: 1, name: 'Janice Almonte', email: 'wakapasar@ustp.edu.ph', role: 'Student', status: 'Active', joinDate: '2025-01-15' },
     { id: 2, name: 'Jane Smith', email: 'jane@ustp.edu.ph', role: 'Seller', status: 'Active', joinDate: '2024-01-20' },
     { id: 3, name: 'Mike Johnson', email: 'mike@ustp.edu.ph', role: 'Student', status: 'Inactive', joinDate: '2024-02-01' },
     { id: 4, name: 'Sarah Wilson', email: 'sarah@ustp.edu.ph', role: 'Seller', status: 'Active', joinDate: '2024-02-10' },
