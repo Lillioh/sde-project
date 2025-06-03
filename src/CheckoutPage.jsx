@@ -228,36 +228,51 @@ const CheckoutPage = () => {
                   
                   <div className="p-8 space-y-4">
                     <label className="flex items-center p-6 border-2 border-gray-200 rounded-xl hover:border-[#213567] cursor-pointer transition-all duration-200 group">
-                      <input
-                        type="radio"
-                        name="paymentMethod"
-                        value="gcash"
-                        checked={formData.paymentMethod === 'gcash'}
-                        onChange={handleInputChange}
-                        className="mr-4 h-5 w-5 text-[#213567]"
-                      />
-                      <div className="flex-grow">
-                        <div className="flex justify-between items-center">
-                          <div>
-                            <p className="font-semibold text-[#213567] text-lg">GCash</p>
-                            <p className="text-sm text-gray-600">Pay with your GCash wallet</p>
-                          </div>
-                          <div className="text-2xl">💙</div>
-
+                        <input
+                            type="radio"
+                            name="paymentMethod"
+                            value="gcash"
+                            checked={formData.paymentMethod === 'gcash'}
+                            onChange={handleInputChange}
+                            className="hidden"
+                            id="gcash-radio"
+                        />
+                        <div className="mr-4 h-5 w-5 rounded-full border-2 border-gray-400 flex items-center justify-center">
+                            {formData.paymentMethod === 'gcash' && (
+                            <div className="h-2.5 w-2.5 bg-black rounded-full" />
+                            )}
                         </div>
-                      </div>
+                        <div className="flex-grow">
+                    <div className="flex justify-between items-center">
+                        <div>
+                        <p className="font-semibold text-[#213567] text-lg">GCash</p>
+                        <p className="text-sm text-gray-600">Pay with your GCash wallet</p>
+                        </div>
+                        <img
+                        src="/src/assets/gcash.jpg"
+                        alt="GCash Logo"
+                        className="w-10 h-10 object-contain"
+                        />
+                    </div>
+                 </div>
                     </label>
                     
                     <label className="flex items-center p-6 border-2 border-gray-200 rounded-xl hover:border-[#213567] cursor-pointer transition-all duration-200 group">
-                      <input
-                        type="radio"
-                        name="paymentMethod"
-                        value="cod"
-                        checked={formData.paymentMethod === 'cod'}
-                        onChange={handleInputChange}
-                        className="mr-4 h-5 w-5 text-[#213567]"
-                      />
-                      <div className="flex-grow">
+                        <input
+                            type="radio"
+                            name="paymentMethod"
+                            value="cod"
+                            checked={formData.paymentMethod === 'cod'}
+                            onChange={handleInputChange}
+                            className="hidden"
+                            id="cod-radio"
+                        />
+                        <div className="mr-4 h-5 w-5 rounded-full border-2 border-gray-400 flex items-center justify-center">
+                            {formData.paymentMethod === 'cod' && (
+                            <div className="h-2.5 w-2.5 bg-black rounded-full" />
+                            )}
+                        </div>
+                        <div className="flex-grow">
                         <div className="flex justify-between items-center">
                           <div>
                             <p className="font-semibold text-[#213567] text-lg">Cash on Delivery</p>
