@@ -163,17 +163,12 @@ const ShoppingCart = () => {
                       <span className="font-semibold text-green-600">Free</span>
                     </div>
                     
-                    <div className="flex justify-between items-center py-2">
-                      <span className="text-gray-600 font-medium">Tax (12%)</span>
-                      <span className="font-semibold text-[#213567]">₱{(totalPrice * 0.12).toLocaleString('en-PH', { minimumFractionDigits: 2 })}</span>
-                    </div>
-                    
                     <hr className="border-gray-200 my-4" />
                     
                     <div className="flex justify-between items-center py-2">
                       <span className="text-xl font-bold text-[#213567]">Total</span>
                       <span className="text-2xl font-bold text-[#DDA853]">
-                        ₱{(totalPrice * 1.12).toLocaleString('en-PH', { minimumFractionDigits: 2 })}
+                        ₱{totalPrice.toLocaleString('en-PH', { minimumFractionDigits: 2 })}
                       </span>
                     </div>
                     
