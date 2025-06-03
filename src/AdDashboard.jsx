@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
-import { X, User, Clock, CheckCircle, Activity, Search, Filter } from 'lucide-react';
+import { X, User, Clock, CheckCircle, Activity, Search, Filter, Calendar, Mail, UserCheck, UserX } from 'lucide-react';
 
 // Circular Progress Component
 const CircularProgress = ({ percentage, title, subtitle, color = "#3b82f6" }) => {
@@ -96,92 +96,334 @@ const Modal = ({ isOpen, onClose, title, children }) => {
   );
 };
 
+// User Profile Modal Component
+const UserProfileModal = ({ user, isOpen, onClose, onStatusChange }) => {
+  if (!isOpen || !user) return null;
+
+  const handleStatusToggle = () => {
+    const newStatus = user.status === 'Active' ? 'Inactive' : 'Active';
+    onStatusChange(user.id, newStatus);
+  };
+
+  const handleViewShop = () => {
+    // Navigate to seller's shop page
+    // Replace with your actual navigation logic
+    const shopUrl = `/shop/${user.id}`;
+    window.open(shopUrl, '_blank');
+    // Or use your router: navigate(`/shop/${user.id}`);
+  };
+
+  return (
+    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+      <div className={`bg-white rounded-2xl shadow-2xl max-w-lg w-full transform transition-all ${
+        user.status === 'Inactive' ? 'opacity-75' : ''
+      }`}>
+        {/* Modal Header */}
+        <div className="flex items-center justify-between p-6 border-b border-gray-200">
+          <h2 className="text-xl font-semibold text-gray-800">
+            {user.role === 'Seller' ? 'Seller Account Details' : 'User Profile'}
+          </h2>
+          <button
+            onClick={onClose}
+            className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+          >
+            <X className="w-5 h-5 text-gray-500" />
+          </button>
+        </div>
+
+        {/* Modal Content */}
+        <div className="p-6 space-y-6">
+          {/* User Avatar and Basic Info */}
+          <div className="flex flex-col items-center text-center space-y-4">
+            <div className={`w-20 h-20 rounded-full flex items-center justify-center ${
+              user.status === 'Inactive' 
+                ? 'bg-gradient-to-r from-gray-400 to-gray-500' 
+                : user.role === 'Seller'
+                  ? 'bg-gradient-to-r from-purple-500 to-indigo-500'
+                  : 'bg-gradient-to-r from-blue-500 to-indigo-500'
+            }`}>
+              <User className="w-10 h-10 text-white" />
+            </div>
+            <div>
+              <h3 className="text-lg font-semibold text-gray-800">{user.name}</h3>
+              <span className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${
+                user.status === 'Active' 
+                  ? 'bg-green-100 text-green-800' 
+                  : 'bg-red-100 text-red-800'
+              }`}>
+                {user.status}
+              </span>
+            </div>
+          </div>
+
+          {/* User Details - Aligned Layout */}
+          <div className="space-y-4">
+            <div className="grid grid-cols-3 gap-4 p-4 bg-gray-50 rounded-lg">
+              <div className="flex items-center space-x-2">
+                <User className="w-4 h-4 text-gray-500" />
+                <span className="text-sm font-medium text-gray-700">Name:</span>
+              </div>
+              <div className="col-span-2">
+                <span className="text-sm text-gray-800 font-medium">{user.name}</span>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-3 gap-4 p-4 bg-gray-50 rounded-lg">
+              <div className="flex items-center space-x-2">
+                <Mail className="w-4 h-4 text-gray-500" />
+                <span className="text-sm font-medium text-gray-700">Email:</span>
+              </div>
+              <div className="col-span-2">
+                <span className="text-sm text-gray-800">{user.email}</span>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-3 gap-4 p-4 bg-gray-50 rounded-lg">
+              <div className="flex items-center space-x-2">
+                <UserCheck className="w-4 h-4 text-gray-500" />
+                <span className="text-sm font-medium text-gray-700">Role:</span>
+              </div>
+              <div className="col-span-2">
+                <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+                  user.role === 'Seller' 
+                    ? 'bg-purple-100 text-purple-800' 
+                    : 'bg-blue-100 text-blue-800'
+                }`}>
+                  {user.role}
+                </span>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-3 gap-4 p-4 bg-gray-50 rounded-lg">
+              <div className="flex items-center space-x-2">
+                <Activity className="w-4 h-4 text-gray-500" />
+                <span className="text-sm font-medium text-gray-700">Status:</span>
+              </div>
+              <div className="col-span-2">
+                <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+                  user.status === 'Active' 
+                    ? 'bg-green-100 text-green-800' 
+                    : 'bg-red-100 text-red-800'
+                }`}>
+                  {user.status}
+                </span>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-3 gap-4 p-4 bg-gray-50 rounded-lg">
+              <div className="flex items-center space-x-2">
+                <Calendar className="w-4 h-4 text-gray-500" />
+                <span className="text-sm font-medium text-gray-700">Join Date:</span>
+              </div>
+              <div className="col-span-2">
+                <span className="text-sm text-gray-800">{user.joinDate}</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Action Buttons */}
+          <div className="pt-4 border-t border-gray-200 space-y-3">
+            {/* View Shop Button - Only for Sellers */}
+            {user.role === 'Seller' && (
+              <button
+                onClick={handleViewShop}
+                className="w-full py-3 px-4 rounded-lg font-medium transition-all duration-200 flex items-center justify-center space-x-2 bg-blue-500 hover:bg-blue-600 text-white"
+              >
+                <Activity className="w-5 h-5" />
+                <span>View Shop</span>
+              </button>
+            )}
+
+            {/* Status Toggle Button - Only for Sellers */}
+            {user.role === 'Seller' && (
+              <button
+                onClick={handleStatusToggle}
+                className={`w-full py-3 px-4 rounded-lg font-medium transition-all duration-200 flex items-center justify-center space-x-2 ${
+                  user.status === 'Active'
+                    ? 'bg-red-500 hover:bg-red-600 text-white'
+                    : 'bg-green-500 hover:bg-green-600 text-white'
+                }`}
+              >
+                {user.status === 'Active' ? (
+                  <>
+                    <UserX className="w-5 h-5" />
+                    <span>Deactivate Seller</span>
+                  </>
+                ) : (
+                  <>
+                    <UserCheck className="w-5 h-5" />
+                    <span>Activate Seller</span>
+                  </>
+                )}
+              </button>
+            )}
+
+            {user.status === 'Inactive' && user.role === 'Seller' && (
+              <p className="text-xs text-red-600 text-center">
+                This seller account is currently deactivated
+              </p>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 // Users Table Component
 const UsersTable = ({ searchTerm, setSearchTerm }) => {
-  const [users] = useState([
+  const [users, setUsers] = useState([
     { id: 1, name: 'John Doe', email: 'john@ustp.edu.ph', role: 'Student', status: 'Active', joinDate: '2024-01-15' },
     { id: 2, name: 'Jane Smith', email: 'jane@ustp.edu.ph', role: 'Seller', status: 'Active', joinDate: '2024-01-20' },
     { id: 3, name: 'Mike Johnson', email: 'mike@ustp.edu.ph', role: 'Student', status: 'Inactive', joinDate: '2024-02-01' },
     { id: 4, name: 'Sarah Wilson', email: 'sarah@ustp.edu.ph', role: 'Seller', status: 'Active', joinDate: '2024-02-10' },
     { id: 5, name: 'David Brown', email: 'david@ustp.edu.ph', role: 'Student', status: 'Active', joinDate: '2024-02-15' },
+    { id: 6, name: 'Lisa Garcia', email: 'lisa@ustp.edu.ph', role: 'Seller', status: 'Inactive', joinDate: '2024-03-01' },
   ]);
 
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const filteredUsers = users.filter(user =>
-    user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    user.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    user.role.toLowerCase().includes(searchTerm.toLowerCase())
+    user.name?.toLowerCase().includes(searchTerm?.toLowerCase() || '') ||
+    user.email?.toLowerCase().includes(searchTerm?.toLowerCase() || '') ||
+    user.role?.toLowerCase().includes(searchTerm?.toLowerCase() || '')
   );
 
+  const handleUserClick = (user) => {
+    setSelectedUser(user);
+    setIsModalOpen(true);
+  };
+
+  const handleStatusChange = (userId, newStatus) => {
+    setUsers(prevUsers =>
+      prevUsers.map(user =>
+        user.id === userId ? { ...user, status: newStatus } : user
+      )
+    );
+    setSelectedUser(prev => prev ? { ...prev, status: newStatus } : null);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedUser(null);
+  };
+
   return (
-    <div className="space-y-6">
-      {/* Search Bar */}
-      <div className="flex items-center space-x-4">
-        <div className="relative flex-1">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-          <input
-            type="text"
-            placeholder="Search users..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full pl-10 pr-4 py-3 rounded-xl bg-white/80 backdrop-blur-md border border-gray-200/50 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-transparent"
-          />
+    <>
+      <div className="space-y-6">
+        {/* Search Bar */}
+        <div className="flex items-center space-x-4">
+          <div className="relative flex-1">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+            <input
+              type="text"
+              placeholder="Search users..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="w-full pl-10 pr-4 py-3 rounded-xl bg-white/80 backdrop-blur-md border border-gray-200/50 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-transparent"
+            />
+          </div>
+          <button className="p-3 rounded-xl bg-white/80 backdrop-blur-md border border-gray-200/50 hover:bg-gray-50/50 transition-colors">
+            <Filter className="w-5 h-5 text-gray-600" />
+          </button>
         </div>
-        <button className="p-3 rounded-xl bg-white/80 backdrop-blur-md border border-gray-200/50 hover:bg-gray-50/50 transition-colors">
-          <Filter className="w-5 h-5 text-gray-600" />
-        </button>
+
+        {/* Users Table */}
+        <div className="bg-white/80 backdrop-blur-md rounded-2xl shadow-xl border border-gray-200/50 overflow-hidden">
+          <div className="overflow-x-auto">
+            <table className="w-full">
+              <thead className="bg-gray-50/50 border-b border-gray-200/50">
+                <tr>
+                  <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">Name</th>
+                  <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">Email</th>
+                  <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">Role</th>
+                  <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">Status</th>
+                  <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">Join Date</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-200/50">
+                {filteredUsers.map((user) => (
+                  <tr 
+                    key={user.id} 
+                    onClick={() => handleUserClick(user)}
+                    className={`cursor-pointer transition-all duration-200 ${
+                      user.status === 'Inactive' && user.role === 'Seller'
+                        ? 'hover:bg-red-50/50 bg-red-25/25'
+                        : 'hover:bg-gray-50/50'
+                    }`}
+                  >
+                    <td className="px-6 py-4">
+                      <div className="flex items-center space-x-3">
+                        <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
+                          user.status === 'Inactive' && user.role === 'Seller'
+                            ? 'bg-gradient-to-r from-red-400 to-red-500'
+                            : 'bg-gradient-to-r from-blue-500 to-indigo-500'
+                        }`}>
+                          <User className="w-4 h-4 text-white" />
+                        </div>
+                        <span className={`text-sm font-medium ${
+                          user.status === 'Inactive' && user.role === 'Seller'
+                            ? 'text-gray-500'
+                            : 'text-gray-800'
+                        }`}>
+                          {user.name}
+                        </span>
+                      </div>
+                    </td>
+                    <td className={`px-6 py-4 text-sm ${
+                      user.status === 'Inactive' && user.role === 'Seller'
+                        ? 'text-gray-400'
+                        : 'text-gray-600'
+                    }`}>
+                      {user.email}
+                    </td>
+                    <td className="px-6 py-4">
+                      <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+                        user.role === 'Seller' 
+                          ? user.status === 'Inactive'
+                            ? 'bg-red-100 text-red-800'
+                            : 'bg-purple-100 text-purple-800'
+                          : 'bg-blue-100 text-blue-800'
+                      }`}>
+                        {user.role}
+                        {user.role === 'Seller' && user.status === 'Inactive' && (
+                          <span className="ml-1 text-xs">●</span>
+                        )}
+                      </span>
+                    </td>
+                    <td className="px-6 py-4">
+                      <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+                        user.status === 'Active' 
+                          ? 'bg-green-100 text-green-800' 
+                          : 'bg-red-100 text-red-800'
+                      }`}>
+                        {user.status}
+                      </span>
+                    </td>
+                    <td className={`px-6 py-4 text-sm ${
+                      user.status === 'Inactive' && user.role === 'Seller'
+                        ? 'text-gray-400'
+                        : 'text-gray-600'
+                    }`}>
+                      {user.joinDate}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
 
-      {/* Users Table */}
-      <div className="bg-white/80 backdrop-blur-md rounded-2xl shadow-xl border border-gray-200/50 overflow-hidden">
-        <div className="overflow-x-auto">
-          <table className="w-full">
-            <thead className="bg-gray-50/50 border-b border-gray-200/50">
-              <tr>
-                <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">Name</th>
-                <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">Email</th>
-                <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">Role</th>
-                <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">Status</th>
-                <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">Join Date</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-200/50">
-              {filteredUsers.map((user) => (
-                <tr key={user.id} className="hover:bg-gray-50/50 transition-colors">
-                  <td className="px-6 py-4">
-                    <div className="flex items-center space-x-3">
-                      <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full flex items-center justify-center">
-                        <User className="w-4 h-4 text-white" />
-                      </div>
-                      <span className="text-sm font-medium text-gray-800">{user.name}</span>
-                    </div>
-                  </td>
-                  <td className="px-6 py-4 text-sm text-gray-600">{user.email}</td>
-                  <td className="px-6 py-4">
-                    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                      user.role === 'Seller' 
-                        ? 'bg-purple-100 text-purple-800' 
-                        : 'bg-blue-100 text-blue-800'
-                    }`}>
-                      {user.role}
-                    </span>
-                  </td>
-                  <td className="px-6 py-4">
-                    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                      user.status === 'Active' 
-                        ? 'bg-green-100 text-green-800' 
-                        : 'bg-red-100 text-red-800'
-                    }`}>
-                      {user.status}
-                    </span>
-                  </td>
-                  <td className="px-6 py-4 text-sm text-gray-600">{user.joinDate}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
+      {/* User Profile Modal */}
+      <UserProfileModal
+        user={selectedUser}
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        onStatusChange={handleStatusChange}
+      />
+    </>
   );
 };
 
@@ -573,7 +815,7 @@ export default function AdDashboard() {
 
 
   return (
-    <div className="min-h-screen w-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 flex flex-col">
+    <div className="min-h-screen w-screen bg-gradient-to-br from-gray-50 via-blue-50 to-indigo-100 bg-fixed">
       {/* Modern Top Navigation Bar */}
       <header className="bg-white/80 backdrop-blur-md border-b border-gray-200/50 px-6 py-4 sticky top-0 z-50">
         <div className="flex items-center justify-between max-w-7xl mx-auto">

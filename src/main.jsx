@@ -26,6 +26,7 @@ import ShopInfoEdit from "./ShopInfoEdit.jsx";
 import AdminAccount from "./AdminAccountPage.jsx";
 import AllNotificationsPage from "./AllNotificationsPage.jsx";
 import CreateAdminAccount from "./CreateAdminAccount.jsx";
+import AdminShopViewPage from "./AdminShopViewPage.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -55,6 +56,7 @@ createRoot(document.getElementById("root")).render(
         <Route path="/admin-account" element={<AdminAccount />} />
         <Route path="all-notif" element={<AllNotificationsPage />} />
         <Route path="admin-createAcc" element={<CreateAdminAccount />} />
+        <Route path="admin-viewShop" element={<AdminShopViewPage />} />
 
       </Routes>
     </BrowserRouter>
