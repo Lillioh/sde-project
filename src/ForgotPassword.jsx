@@ -1,188 +1,86 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
-const ForgotPassword = () => {
+function ForgotPassword() {
   const [email, setEmail] = useState("");
-  const [error, setError] = useState("");
 
-  const existingEmails = ["student1@ustp.edu.ph", "test@ustp.edu.ph"];
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-    if (!emailRegex.test(email) || !existingEmails.includes(email.trim())) {
-      setError("Invalid email");
-    } else {
-      setError("");
-      console.log("Recovery email sent to:", email);
-    }
+  const handleReset = () => {
+    console.log("Reset link sent to:", email);
   };
 
   return (
-    <div
-      className="
-        flex flex-col
-        w-screen h-screen
-        font-sans
-        bg-[#f9f3e5]
-      "
-    >
-      <header
-        className="
-          flex
-          h-[70px]
-          w-full
-          px-10 py-5
-          text-white
-          bg-[#213567]
-          justify-between items-center
-        "
-      >
-        <div
-          className="
-            flex flex-col
-            items-center
-          "
-        >
+    <>
+      <div className="flex flex-col w-screen h-screen items-center">
+        {/* Header Logo and Title */}
+        <div className="flex flex-col w-full h-1/3 font-[Poppins] items-center justify-end">
           <img
             src="/src/assets/logo.png"
             alt="Logo"
-            className="
-              h-[42px] w-[42px]
-            "
+            className="max-w-40 max-h-40"
           />
-          <span
-            className="
-              mt-1
-              text-[11px] font-medium tracking-[0.2px] text-center
-            "
-          >
+          <span className="text-center text-[#183B4E] font-bold text-shadow-lg md:text-3xl lg:text-4xl">
+            USTP MARKETPLACE FOR STUDENTS
           </span>
         </div>
-        <div
-          className="
-            flex
-            items-center gap-6
-            text-white
-          "
-        >
-          <Link
-            to="/login"
-            className="
-              text-[13px]
-              hover:underline
-            "
-          >
-            Log in
-          </Link>
-          <button
-            className="
-              text-[13px]
-              hover:underline
-            "
-          >
-            Start selling here
-          </button>
-        </div>
-      </header>
 
-      <main
-        className="
-          flex-1 flex
-          px-4
-          items-center justify-center
-        "
-      >
-        <div
-          className="
-            max-w-md w-full
-            p-10
-            text-center
-            bg-white
-            rounded-3xl
-            shadow-xl
-          "
-        >
-          {/* Title */}
-          <h2
-            className="
-              mb-3
-              text-[#213567] text-[28px] font-extrabold leading-snug
-            "
-          >
-            Find your
-            <br />
-            account
-          </h2>
-
-          {/* Email Form */}
-          <form
-            onSubmit={handleSubmit}
-            className="
-              py-6 px-6
-              bg-white
-              rounded-2xl
-              shadow-md
-            "
-          >
-            <div
-              className="
-                mb-5
-                text-left
-              "
-            >
-              <p
-                className="
-                  mb-2
-                  text-[14px] text-[#374151] leading-tight
-                "
-              >
-                Enter your email to recover your account
-              </p>
-              <input
-                type="email"
-                placeholder="Email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="
-                  w-full
-                  py-3 px-4 mb-2
-                  text-[15px] placeholder-[#9ca3af] text-[#213567]
-                  border border-[#cbd5e1] rounded-full
-                  focus:outline-none focus:ring-2 focus:ring-[#213567]
-                "
-              />
-              {error && (
-                <p
-                  className="
-                    px-1 mt-1
-                    text-red-600 text-sm text-left
-                  "
-                >
-                  {error}
-                </p>
-              )}
-            </div>
-            <button
-              type="submit"
+        {/* Forgot Password Card */}
+        <div className="flex flex-col w-full h-1/3 font-[Poppins] items-center justify-end">
+          <div className="w-full max-w-xs space-y-4">
+            <h2 className="text-xl font-semibold text-[#183B4E] text-center">
+              Forgot Password?
+            </h2>
+            <p className="text-sm text-gray-600 text-center">
+              Enter your email to receive a password reset link
+            </p>
+            <input
+              type="email"
+              placeholder="Email address"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               className="
                 w-full
-                py-3
-                text-white text-[15px] font-semibold
-                bg-[#213567]
-                rounded-full
-                hover:opacity-90 transition
+                px-4 py-2
+                text-black placeholder-gray-500
+                bg-white
+                border border-gray-300 rounded-md
+                shadow-md
+                focus:outline-none focus:ring-1 focus:ring-blue-500
+              "
+            />
+
+            <button
+              onClick={handleReset}
+              className="
+                w-full
+                py-3 px-4
+                text-white font-bold
+                bg-[#183B4E]
+                rounded-lg
+                transition-transform shadow-md
+                hover:scale-102 hover:bg-[#DDA853] hover:text-black
               "
             >
-              Submit
+              Send Reset Link
             </button>
-          </form>
+
+            <div className="text-sm text-center text-gray-600">
+              Remembered your password?{" "}
+              <Link to="/" className="text-[#183B4E] hover:underline font-medium">
+                Log in
+              </Link>
+            </div>
+          </div>
         </div>
-      </main>
-    </div>
+
+        {/* Footer */}
+        <div className="flex flex-col h-1/3 justify-end">
+          <div className="w-full text-center text-xs text-gray-500 font-sans">
+            © 2025 All Rights Reserved.
+          </div>
+        </div>
+      </div>
+    </>
   );
-};
+}
 
 export default ForgotPassword;

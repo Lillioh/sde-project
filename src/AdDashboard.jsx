@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
-import { X, User, Clock, CheckCircle, Activity, Search, Filter, Calendar, Mail, UserCheck, UserX } from 'lucide-react';
+import { X, User, Clock, CheckCircle, Activity, Search, Filter, Calendar, Mail, UserCheck, UserX, Package, ShoppingCart, Eye, Check, XCircle, Star} from 'lucide-react';
 
 // Circular Progress Component
 const CircularProgress = ({ percentage, title, subtitle, color = "#3b82f6" }) => {
@@ -429,39 +429,394 @@ const UsersTable = ({ searchTerm, setSearchTerm }) => {
 
 // Activity Management Component
 const ActivityManagement = () => {
-  const [activities] = useState([
-    { id: 1, type: 'registration', user: 'John Doe', description: 'New user registered', time: '2 minutes ago', status: 'completed' },
-    { id: 2, type: 'product', user: 'Jane Smith', description: 'Product approval requested', time: '15 minutes ago', status: 'pending' },
-    { id: 3, type: 'order', user: 'Mike Johnson', description: 'Order #1234 placed', time: '1 hour ago', status: 'completed' },
-    { id: 4, type: 'registration', user: 'Sarah Wilson', description: 'Seller registration approved', time: '2 hours ago', status: 'completed' },
-    { id: 5, type: 'product', user: 'David Brown', description: 'Product listing updated', time: '3 hours ago', status: 'completed' },
+  const [activities, setActivities] = useState([
+    { 
+      id: 1, 
+      type: 'registration', 
+      user: 'John Doe', 
+      description: 'New user registered', 
+      time: '2 minutes ago', 
+      status: 'completed',
+      userData: {
+        name: 'John Doe',
+        email: 'john.doe@example.com',
+        role: 'Customer',
+        status: 'Active',
+        joinDate: 'March 15, 2025'
+      }
+    },
+    { 
+      id: 2, 
+      type: 'product', 
+      user: 'Jane Smith', 
+      description: 'Product approval requested', 
+      time: '15 minutes ago', 
+      status: 'pending',
+      productData: {
+        name: 'Wireless Bluetooth Headphones',
+        category: 'Electronics',
+        price: '89.99',
+        seller: 'Jane Smith',
+        description: 'High-quality wireless headphones with noise cancellation and 30-hour battery life.',
+        submittedDate: 'March 10, 2025'
+      }
+    },
+    { 
+      id: 3, 
+      type: 'order', 
+      user: 'Mike Johnson', 
+      description: 'Order #1234 placed', 
+      time: '1 hour ago', 
+      status: 'completed',
+      orderData: {
+        orderId: '1234',
+        customer: 'Mike Johnson',
+        total: '156.99',
+        orderStatus: 'Completed',
+        orderDate: 'March 15, 2025',
+        items: [
+          { name: 'Smartphone Case', quantity: 2, price: '24.99' },
+          { name: 'Screen Protector', quantity: 1, price: '12.99' }
+        ]
+      }
+    },
+    { 
+      id: 4, 
+      type: 'registration', 
+      user: 'Sarah Wilson', 
+      description: 'Seller registration approved', 
+      time: '2 hours ago', 
+      status: 'completed',
+      userData: {
+        name: 'Sarah Wilson',
+        email: 'sarah.wilson@store.com',
+        role: 'Seller',
+        status: 'Active',
+        joinDate: 'March 14, 2025'
+      }
+    },
+    { 
+      id: 5, 
+      type: 'product', 
+      user: 'David Brown', 
+      description: 'Product listing updated', 
+      time: '3 hours ago', 
+      status: 'completed',
+      productData: {
+        name: 'Gaming Keyboard',
+        category: 'Electronics',
+        price: '129.99',
+        seller: 'David Brown',
+        description: 'Mechanical gaming keyboard with RGB lighting.',
+        submittedDate: 'March 14, 2025'
+      }
+    },
   ]);
+
+  const [selectedActivity, setSelectedActivity] = useState(null);
+  const [showModal, setShowModal] = useState(false);
 
   const getActivityIcon = (type) => {
     switch (type) {
       case 'registration':
         return <User className="w-5 h-5 text-blue-600" />;
       case 'product':
-        return <CheckCircle className="w-5 h-5 text-green-600" />;
+        return <Package className="w-5 h-5 text-green-600" />;
       case 'order':
-        return <Activity className="w-5 h-5 text-purple-600" />;
+        return <ShoppingCart className="w-5 h-5 text-purple-600" />;
       default:
         return <Activity className="w-5 h-5 text-gray-600" />;
     }
   };
+
+  const handleActivityClick = (activity) => {
+    setSelectedActivity(activity);
+    setShowModal(true);
+  };
+
+  const closeModal = () => {
+    setShowModal(false);
+    setSelectedActivity(null);
+  };
+
+  const handleApproveProduct = () => {
+    setActivities(prev => 
+      prev.map(activity => 
+        activity.id === selectedActivity.id 
+          ? { ...activity, status: 'completed', description: 'Product approved' }
+          : activity
+      )
+    );
+    closeModal();
+  };
+
+  const handleDeclineProduct = () => {
+    setActivities(prev => 
+      prev.map(activity => 
+        activity.id === selectedActivity.id 
+          ? { ...activity, status: 'declined', description: 'Product declined' }
+          : activity
+      )
+    );
+    closeModal();
+  };
+
+  const renderModalContent = () => {
+    if (!selectedActivity) return null;
+
+    switch (selectedActivity.type) {
+      case 'registration':
+        { const user = selectedActivity.userData;
+        return (
+          <div className="space-y-4">
+            <div className="grid grid-cols-3 gap-4 p-4 bg-gray-50 rounded-lg">
+              <div className="flex items-center space-x-2">
+                <User className="w-4 h-4 text-gray-500" />
+                <span className="text-sm font-medium text-gray-700">Name:</span>
+              </div>
+              <div className="col-span-2">
+                <span className="text-sm text-gray-800 font-medium">{user.name}</span>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-3 gap-4 p-4 bg-gray-50 rounded-lg">
+              <div className="flex items-center space-x-2">
+                <Mail className="w-4 h-4 text-gray-500" />
+                <span className="text-sm font-medium text-gray-700">Email:</span>
+              </div>
+              <div className="col-span-2">
+                <span className="text-sm text-gray-800">{user.email}</span>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-3 gap-4 p-4 bg-gray-50 rounded-lg">
+              <div className="flex items-center space-x-2">
+                <UserCheck className="w-4 h-4 text-gray-500" />
+                <span className="text-sm font-medium text-gray-700">Role:</span>
+              </div>
+              <div className="col-span-2">
+                <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+                  user.role === 'Seller' 
+                    ? 'bg-purple-100 text-purple-800' 
+                    : 'bg-blue-100 text-blue-800'
+                }`}>
+                  {user.role}
+                </span>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-3 gap-4 p-4 bg-gray-50 rounded-lg">
+              <div className="flex items-center space-x-2">
+                <Activity className="w-4 h-4 text-gray-500" />
+                <span className="text-sm font-medium text-gray-700">Status:</span>
+              </div>
+              <div className="col-span-2">
+                <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+                  user.status === 'Active' 
+                    ? 'bg-green-100 text-green-800' 
+                    : 'bg-red-100 text-red-800'
+                }`}>
+                  {user.status}
+                </span>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-3 gap-4 p-4 bg-gray-50 rounded-lg">
+              <div className="flex items-center space-x-2">
+                <Calendar className="w-4 h-4 text-gray-500" />
+                <span className="text-sm font-medium text-gray-700">Join Date:</span>
+              </div>
+              <div className="col-span-2">
+                <span className="text-sm text-gray-800">{user.joinDate}</span>
+              </div>
+            </div>
+
+            <div className="flex justify-end space-x-3 pt-4 border-t border-gray-200">
+              <button
+                onClick={closeModal}
+                className="px-4 py-2 text-gray-600 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+              >
+                Close
+              </button>
+             
+            </div>
+          </div>
+        ); }
+
+      case 'product':
+        { const product = selectedActivity.productData;
+        return (
+          <div className="space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="space-y-4">
+                <div className="bg-gray-100 rounded-lg p-4 h-48 flex items-center justify-center">
+                  <Package className="w-16 h-16 text-gray-400" />
+                </div>
+              </div>
+              
+              <div className="space-y-4">
+                <div>
+                  <label className="text-sm font-medium text-gray-700">Product Name</label>
+                  <p className="text-lg font-semibold text-gray-800">{product.name}</p>
+                </div>
+                
+                <div>
+                  <label className="text-sm font-medium text-gray-700">Category</label>
+                  <p className="text-gray-800">{product.category}</p>
+                </div>
+                
+                <div>
+                  <label className="text-sm font-medium text-gray-700">Price</label>
+                  <p className="text-xl font-bold text-green-600">₱{product.price}</p>
+                </div>
+                
+                <div>
+                  <label className="text-sm font-medium text-gray-700">Seller</label>
+                  <p className="text-gray-800">{product.seller}</p>
+                </div>
+              </div>
+            </div>
+            
+            <div>
+              <label className="text-sm font-medium text-gray-700">Description</label>
+              <p className="text-gray-800 mt-2 p-4 bg-gray-50 rounded-lg">{product.description}</p>
+            </div>
+            
+            {selectedActivity.status === 'pending' && (
+              <div className="flex items-center space-x-4 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+                <div className="flex-shrink-0">
+                  <Clock className="w-5 h-5 text-yellow-600" />
+                </div>
+                <div>
+                  <p className="text-sm font-medium text-yellow-800">Pending Approval</p>
+                  <p className="text-xs text-yellow-600">Submitted {product.submittedDate}</p>
+                </div>
+              </div>
+            )}
+            
+            <div className="flex justify-end space-x-3 pt-4 border-t border-gray-200">
+              <button
+                onClick={closeModal}
+                className="px-4 py-2 text-gray-600 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+              >
+                Cancel
+              </button>
+              {selectedActivity.status === 'pending' && (
+                <>
+                  <button
+                    onClick={handleDeclineProduct}
+                    className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors flex items-center space-x-2"
+                  >
+                    <X className="w-4 h-4" />
+                    <span>Decline</span>
+                  </button>
+                  <button
+                    onClick={handleApproveProduct}
+                    className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors flex items-center space-x-2"
+                  >
+                    <Check className="w-4 h-4" />
+                    <span>Approve</span>
+                  </button>
+                </>
+              )}
+            </div>
+          </div>
+        ); }
+
+      case 'order':
+        { const order = selectedActivity.orderData;
+        return (
+          <div className="space-y-6">
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-3">
+                <div>
+                  <label className="text-sm font-medium text-gray-700">Order ID</label>
+                  <p className="text-lg font-semibold text-gray-800">#{order.orderId}</p>
+                </div>
+                <div>
+                  <label className="text-sm font-medium text-gray-700">Customer</label>
+                  <p className="text-gray-800">{order.customer}</p>
+                </div>
+                <div>
+                  <label className="text-sm font-medium text-gray-700">Total Amount</label>
+                  <p className="text-xl font-bold text-green-600">₱{order.total}</p>
+                </div>
+              </div>
+              
+              <div className="space-y-3">
+                <div>
+                  <label className="text-sm font-medium text-gray-700">Status</label>
+                  <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+                    order.orderStatus === 'Completed' 
+                      ? 'bg-green-100 text-green-800' 
+                      : order.orderStatus === 'Processing'
+                      ? 'bg-blue-100 text-blue-800'
+                      : 'bg-yellow-100 text-yellow-800'
+                  }`}>
+                    {order.orderStatus}
+                  </span>
+                </div>
+                <div>
+                  <label className="text-sm font-medium text-gray-700">Order Date</label>
+                  <p className="text-gray-800">{order.orderDate}</p>
+                </div>
+                <div>
+                  <label className="text-sm font-medium text-gray-700">Items</label>
+                  <p className="text-gray-800">{order.items.length} items</p>
+                </div>
+              </div>
+            </div>
+            
+            <div>
+              <label className="text-sm font-medium text-gray-700">Items Ordered</label>
+              <div className="mt-2 space-y-2">
+                {order.items.map((item, index) => (
+                  <div key={index} className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                    <div>
+                      <p className="font-medium text-gray-800">{item.name}</p>
+                      <p className="text-sm text-gray-600">Qty: {item.quantity}</p>
+                    </div>
+                    <p className="font-semibold text-gray-800">₱{item.price}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+            
+            <div className="flex justify-end space-x-3 pt-4 border-t border-gray-200">
+              <button
+                onClick={closeModal}
+                className="px-4 py-2 text-gray-600 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+              >
+                Close
+              </button>
+             
+            </div>
+          </div>
+        ); }
+
+      default:
+        return (
+          <div className="text-center py-8">
+            <p className="text-gray-600">Activity details not available</p>
+          </div>
+        );
+    }
+  };
+
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <h2 className="text-2xl font-bold text-gray-800">Activity Management</h2>
-        <button className="px-4 py-2 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl font-medium hover:shadow-lg transition-all duration-200">
-          Export Report
-        </button>
       </div>
 
       <div className="bg-white/80 backdrop-blur-md rounded-2xl shadow-xl border border-gray-200/50 p-6">
         <div className="space-y-4">
           {activities.map((activity) => (
-            <div key={activity.id} className="flex items-center space-x-4 p-4 rounded-xl bg-gray-50/50 hover:bg-gray-100/50 transition-colors">
+            <div 
+              key={activity.id} 
+              className="flex items-center space-x-4 p-4 rounded-xl bg-gray-50/50 hover:bg-gray-100/50 transition-colors cursor-pointer"
+              onClick={() => handleActivityClick(activity)}
+            >
               <div className="flex-shrink-0">
                 {getActivityIcon(activity.type)}
               </div>
@@ -471,7 +826,11 @@ const ActivityManagement = () => {
                   <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
                     activity.status === 'completed' 
                       ? 'bg-green-100 text-green-800' 
-                      : 'bg-yellow-100 text-yellow-800'
+                      : activity.status === 'pending'
+                      ? 'bg-yellow-100 text-yellow-800'
+                      : activity.status === 'declined'
+                      ? 'bg-red-100 text-red-800'
+                      : 'bg-gray-100 text-gray-800'
                   }`}>
                     {activity.status}
                   </span>
@@ -485,10 +844,37 @@ const ActivityManagement = () => {
                   </div>
                 </div>
               </div>
+              <div className="flex-shrink-0">
+                <Eye className="w-4 h-4 text-gray-400" />
+              </div>
             </div>
           ))}
         </div>
       </div>
+
+      {/* Modal */}
+      {showModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="flex items-center justify-between p-6 border-b border-gray-200">
+              <h3 className="text-xl font-semibold text-gray-800">
+                {selectedActivity?.type === 'registration' ? 'User Profile Details' :
+                 selectedActivity?.type === 'product' ? 'Product Details' :
+                 selectedActivity?.type === 'order' ? 'Order Details' : 'Activity Details'}
+              </h3>
+              <button
+                onClick={closeModal}
+                className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+              >
+                <X className="w-5 h-5 text-gray-500" />
+              </button>
+            </div>
+            <div className="p-6">
+              {renderModalContent()}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
@@ -897,10 +1283,10 @@ export default function AdDashboard() {
               {showUserDropdown && (
                 <div className="absolute top-full right-0 mt-2 w-48 bg-white/95 backdrop-blur-md rounded-xl shadow-xl border border-gray-200/50 z-50">
                   <div className="py-2">
-                    <button className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50/50 transition-colors">
+                    <button className="w-full text-left px-4 py-2 text-sm text-gray-700 font-medium hover:bg-gray-50/50 transition-colors">
                       Profile
                     </button>
-                    <button className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50/50 transition-colors">
+                    <button className="w-full text-left px-4 py-2 text-sm text-gray-700 font-medium hover:bg-blue-50/50 transition-colors">
                       Account
                     </button>
                     <hr className="my-1 border-gray-200/50" />
