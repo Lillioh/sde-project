@@ -9,7 +9,6 @@ function App() {
   const handleLogin = () => {
     console.log("Username:", username);
     console.log("Password:", password);
-    window.open("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
   };
 
   return (
@@ -82,6 +81,7 @@ function App() {
             <input
               type="password"
               placeholder="Password"
+              autoComplete="new-password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               className="
@@ -94,6 +94,7 @@ function App() {
                 focus:outline-none focus:ring-1 focus:ring-blue-500
               "
             />
+
             <div
               className="
                 flex
@@ -124,6 +125,7 @@ function App() {
                 mt-16
               "
             >
+              <Link to="/buyer-dashboard">
               <button
                 onClick={handleLogin}
                 className="
@@ -138,6 +140,7 @@ function App() {
               >
                 Login
               </button>
+              </Link>
             </div>
           </div>
         </div>

@@ -1,15 +1,43 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
-import "./App.css";
+import { useNavigate } from "react-router-dom"; // For navigation after submit
+import "./index.css";
 
 function CreateAccount() {
+  const [step, setStep] = useState(1);
+  const navigate = useNavigate();
+
+  // Step 1 State
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmpassword, setConfirm] = useState("");
   const [email, setEmail] = useState("");
 
+  // Step 2 State
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [dob, setDob] = useState("");
+  const [address, setAddress] = useState("");
+  const [gender, setGender] = useState(""); // State for gender
+
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if (step === 1) {
+      setStep(2);
+    } else {
+      console.log({
+        username,
+        password,
+        email,
+        firstName,
+        lastName,
+        dob,
+        address,
+        gender, // Include gender in the form data
+      });
+
+      navigate("/thank-you"); // 🔥 Redirect to thank you page
+    }
   };
 
   return (
@@ -36,12 +64,11 @@ function CreateAccount() {
       <div
         className="
           flex flex-col
-          w-[550px]
-          h-[700px]
+          w-[550px] h-[650px]
           p-8 mr-50
           bg-[#F9F9F9]
           rounded-3xl
-          shadow-2xl
+          shadow-2xl animate-fade-in
         "
       >
         <h1
@@ -57,180 +84,320 @@ function CreateAccount() {
             text-sm text-center text-gray-700
           "
         >
-          Step 1: Provide Username, Password
-          and Email
+          Step {step}: {step === 1 ? "Account Credentials" : "Personal Details"}
         </p>
 
-        {/* Step Dots */}
+        {/* Pagination Dots */}
         <div
           className="
-            mt-2
             flex
-            mb-4
+            mt-2 mb-4
             justify-center
           "
         >
           <div
-            className="
+            className={`
               w-2 h-2
               mx-1
-              bg-blue-900
               rounded-full
-            "
+              ${step === 1 ? "bg-blue-900" : "bg-gray-300"}
+            `}
           ></div>
           <div
-            className="
+            className={`
               w-2 h-2
               mx-1
-              bg-gray-300
               rounded-full
-            "
+              ${step === 2 ? "bg-blue-900" : "bg-gray-300"}
+            `}
           ></div>
         </div>
 
-        {/* Form */}
-          <form
-            onSubmit={handleSubmit}
-            className="
-            flex
-            flex-col
-            gap-2
-            border-1
-            border-amber-300
+        {/* Form Start */}
+        <form
+          onSubmit={handleSubmit}
+          className="
+            flex flex-col
             space-y-4
+            gap-2
           "
-          >
-            <div>
-              <label
-                className="
-                block
-                text-sm font-medium text-gray-700 text-left
-              "
-              >
-                Username
-              </label>
-              <div
-                className="
-                relative
-              "
-              >
+        >
+          {step === 1 && (
+            <>
+              {/* Username */}
+              <div>
+                <label
+                  className="
+                    block
+                    text-sm font-medium text-gray-700 text-left
+                  "
+                >
+                  Username
+                </label>
                 <input
                   type="text"
                   placeholder="Enter your username"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
                   className="
-                  w-full
-                  px-4 py-2
-                  placeholder-gray-500 text-[14px] text-black
-                  border rounded-md
-                  shadow-[inset_0px_2px_3px_rgba(0,0,0,0.2)]
-                  focus:outline-none focus:ring-1 focus:ring-blue-500
-                "
+                    w-full
+                    px-4 py-2
+                    text-[14px] text-gray-900 placeholder-gray-400
+                    border border-gray-300 rounded-md
+                    shadow-inner
+                    focus:border-blue-500 focus:outline-none
+                  "
                 />
-                <span
-                  className="
-                  text-pink-600 font-bold text-xl
-                  absolute right-3 top-2.5
-                "
-                >
-                  i
-                </span>
               </div>
-            </div>
 
-            <div>
-              <label
-                className="
-                block
-                text-sm font-medium text-gray-700 text-left
-              "
-              >
-                Password
-              </label>
-              <input
-                type="password"
-                placeholder="Enter your password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="
-                w-full
-                px-4 py-2
-                placeholder-gray-500 text-[14px] text-black
-                border rounded-md
-                shadow-[inset_0px_2px_3px_rgba(0,0,0,0.2)]
-                focus:outline-none focus:ring-1 focus:ring-blue-500
-              "
-              />
-            </div>
+              {/* Password */}
+              <div>
+                <label
+                  className="
+                    block
+                    text-sm font-medium text-gray-700 text-left
+                  "
+                >
+                  Password
+                </label>
+                <input
+                  type="password"
+                  placeholder="Enter your password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="
+                    w-full
+                    px-4 py-2
+                    text-[14px] text-gray-900 placeholder-gray-400
+                    border border-gray-300 rounded-md
+                    shadow-inner
+                    focus:border-blue-500 focus:outline-none
+                  "
+                />
+              </div>
 
-            <div>
-              <label
-                className="
-                block
-                text-sm font-medium text-gray-700 text-left
-              "
-              >
-                Confirm Password
-              </label>
-              <div
-                className="
-                relative
-              "
-              >
+              {/* Confirm Password */}
+              <div>
+                <label
+                  className="
+                    block
+                    text-sm font-medium text-gray-700 text-left
+                  "
+                >
+                  Confirm Password
+                </label>
                 <input
                   type="password"
                   placeholder="Confirm your password"
                   value={confirmpassword}
                   onChange={(e) => setConfirm(e.target.value)}
                   className="
-                  w-full
-                  px-4 py-2
-                  placeholder-gray-500 text-[14px] text-black
-                  border rounded-md
-                  shadow-[inset_0px_2px_3px_rgba(0,0,0,0.2)]
-                  focus:outline-none focus:ring-1 focus:ring-blue-500
-                "
+                    w-full
+                    px-4 py-2
+                    text-[14px] text-gray-900 placeholder-gray-400
+                    border border-gray-300 rounded-md
+                    shadow-inner
+                    focus:border-blue-500 focus:outline-none
+                  "
                 />
-                <span
-                  className="
-                  text-pink-600 font-bold text-xl
-                  absolute right-3 top-2.5
-                "
-                >
-                  i
-                </span>
               </div>
-            </div>
 
-            <div>
-              <label
+              {/* Email Address */}
+              <div>
+                <label
+                  className="
+                    block
+                    text-sm font-medium text-gray-700 text-left
+                  "
+                >
+                  Email Address
+                </label>
+                <input
+                  type="email"
+                  placeholder="Enter your email address"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="
+                    w-full
+                    px-4 py-2
+                    text-[14px] text-gray-900 placeholder-gray-400
+                    border border-gray-300 rounded-md
+                    shadow-inner
+                    focus:border-blue-500 focus:outline-none
+                  "
+                />
+              </div>
+            </>
+          )}
+
+          {step === 2 && (
+            <>
+              {/* First Name */}
+              <div>
+                <label
+                  className="
+                    block
+                    text-sm font-medium text-gray-700 text-left
+                  "
+                >
+                  First Name
+                </label>
+                <input
+                  type="text"
+                  placeholder="Enter your first name"
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
+                  className="
+                    w-full
+                    px-4 py-2
+                    text-[14px] text-gray-900 placeholder-gray-400
+                    border border-gray-300 rounded-md
+                    shadow-inner
+                    focus:border-blue-500 focus:outline-none
+                  "
+                />
+              </div>
+
+              {/* Last Name */}
+              <div>
+                <label
+                  className="
+                    block
+                    text-sm font-medium text-gray-700 text-left
+                  "
+                >
+                  Last Name
+                </label>
+                <input
+                  type="text"
+                  placeholder="Enter your last name"
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
+                  className="
+                    w-full
+                    px-4 py-2
+                    text-[14px] text-gray-900 placeholder-gray-400
+                    border border-gray-300 rounded-md
+                    shadow-inner
+                    focus:border-blue-500 focus:outline-none
+                  "
+                />
+              </div>
+
+              {/* Year of Birth and Gender */}
+              <div
                 className="
-                block
-                text-sm font-medium text-gray-700 text-left
-              "
+                  flex
+                  gap-4
+                "
               >
-                Email Address
-              </label>
-              <input
-                type="email"
-                placeholder="Enter your email address"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="
-                w-full
-                px-4 py-2
-                placeholder-gray-500 text-[14px] text-black
-                border rounded-md
-                shadow-[inset_0px_2px_3px_rgba(0,0,0,0.2)]
-                focus:outline-none focus:ring-1 focus:ring-blue-500
-              "
-              />
-            </div>
-            <Link to="/create-account-2">
-              <button
-                type="submit"
-                className="
+                {/* Year of Birth */}
+                <div
+                  className="
+                    flex flex-col
+                    w-1/2
+                    items-start
+                  "
+                >
+                  <label
+                    className="
+                      block
+                      mb-1
+                      text-sm font-medium text-gray-700 text-left
+                    "
+                  >
+                    Year of Birth
+                  </label>
+                  <input
+                    type="number"
+                    placeholder="YYYY"
+                    value={dob}
+                    onChange={(e) => {
+                      const value = e.target.value;
+                      if (value.length <= 4) setDob(value);
+                    }}
+                    min="1900"
+                    max="2099"
+                    className="
+                      w-full
+                      px-4 py-2
+                      text-[14px] text-gray-900 placeholder-gray-400
+                      border border-gray-300 rounded-md
+                      shadow-inner
+                      focus:border-blue-500 focus:outline-none
+                    "
+                  />
+                </div>
+
+                {/* Gender Dropdown */}
+                <div
+                  className="
+                    flex flex-col
+                    w-1/2
+                    items-start
+                  "
+                >
+                  <label
+                    className="
+                      block
+                      mb-1
+                      text-sm font-medium text-gray-700 text-left
+                    "
+                  >
+                    Gender
+                  </label>
+                  <select
+                    value={gender}
+                    onChange={(e) => setGender(e.target.value)}
+                    className="
+                      w-full
+                      px-4 py-2
+                      text-[14px] text-gray-900 placeholder-gray-400
+                      border border-gray-300 rounded-md
+                      shadow-inner
+                      focus:border-blue-500 focus:outline-none
+                    "
+                  >
+                    <option value="">Select Gender</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
+              </div>
+
+              {/* Address */}
+              <div>
+                <label
+                  className="
+                    block
+                    text-sm font-medium text-gray-700 text-left
+                  "
+                >
+                  Address
+                </label>
+                <input
+                  type="text"
+                  placeholder="Enter your address"
+                  value={address}
+                  onChange={(e) => setAddress(e.target.value)}
+                  className="
+                    w-full
+                    px-4 py-2
+                    text-[14px] text-gray-900 placeholder-gray-400
+                    border border-gray-300 rounded-md
+                    shadow-inner
+                    focus:border-blue-500 focus:outline-none
+                  "
+                />
+              </div>
+            </>
+          )}
+
+          {/* Submit Button */}
+          <button
+            type="submit"
+            className="
               w-full
               py-2 mt-2
               text-white font-semibold
@@ -239,11 +406,24 @@ function CreateAccount() {
               shadow-md
               hover:bg-blue-800
             "
-              >
-                Next
-              </button>
-            </Link>
-          </form>
+          >
+            {step === 1 ? "Next" : "Submit"}
+          </button>
+
+          {step === 2 && (
+            <button
+              type="button"
+              onClick={() => setStep(1)}
+              className="
+                text-sm text-center text-blue-700
+                hover:underline
+              "
+            >
+              Back
+            </button>
+          )}
+        </form>
+        {/* Form End */}
       </div>
     </div>
   );

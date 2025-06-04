@@ -1,181 +1,71 @@
-import { FaHome, FaBell, FaShoppingCart } from "react-icons/fa";
+import { FaHome, FaBell, FaShoppingCart, FaChevronDown } from "react-icons/fa";
 import { MdAccountCircle } from "react-icons/md";
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import Navbar from './components/Navbar';
 
-function buyerDashboard() {
+
+function BuyerDashboard() {
+  
+  const [cart, setCart] = useState([]);
   const products = Array(20).fill({
-    name: "name",
-    price: "price",
-    image: "/img.jpg", //img
+    name: "Sample Item",
+    price: "₱123.45",
+    image: "/src/assets/img.jpg",
   });
 
+  // Handle adding product to the cart
+  const handleAddToCart = (product) => {
+    setCart([...cart, product]);
+    console.log("Product added to cart:", product);
+  };
+
   return (
-    <div
-      className="
-        flex flex-col overflow-clip
-        w-screen h-screen
-        font-sans
-      "
-    >
-      {/* Top Navbar */}
-      <div
-        className="
-          flex
-          flex-row
-          w-full
-          h-[120px]
-          p-4
-          text-white
-          bg-[#213567]
-          gap-10 justify-items-center
-        "
-      >
-        <div
-          className="
-            flex
-            gap-4
-          "
-        >
-          <FaHome />
-          <span>Home</span>
-          <FaBell />
-          <span>Notification</span>
-          <FaShoppingCart />
-          <span>My Cart</span>
-        </div>
-        <div
-          className="
-            flex
-            items-center gap-2
-          "
-        >
-          <input
-            type="text"
-            placeholder="Search"
-            className="
-              ml-80
-              px-4 py-1
-              placeholder-gray-500 text-[14px] text-black
-              rounded-full
-              bg-white
-              w-[600px]
-            "
-          />
-        </div>
-        <div
-          className="
-          flex
-          flex-row
-          ml-30
-            h-11
-            gap-5
-          "
-        >
-          <MdAccountCircle size={40} />
-          <span className="mt-2">User</span>
-          <span
-            className="
-              cursor-pointer
-              underline
-              mt-2
-              ml-10
-            "
-          >
-            Start selling here
-          </span>
-        </div>
-      </div>
-
-      {/* Main Content */}
-      <div
-        className="
-          flex
-        "
-      >
-        {/* Sidebar */}
-        <div
-          className="
-            w-[200px]
-            p-4
-          "
-        >
+    <div className="flex flex-col overflow-clip w-screen h-screen font-sans">
+      <Navbar />
+      <div className="flex flex-1 overflow-hidden">
+        <div className="w-[200px] h-208 mt-4 p-4">
           <img
-            src="ad.jpg"
+            src="/src/assets/ad.jpg"
             alt="Ad"
-            className="
-              h-full
-              bg-amber-200
-              rounded-lg
-            "
+            className="object-cover w-full h-full bg-amber-200 rounded-lg"
           />
         </div>
 
-        {/* Product Grid */}
         <div
-          className="
-            flex-1 grid grid-cols-2 overflow-auto
-            h-180
-            mt-5 ml-2 mr-4
-            bg-[#FAEBD7]
-            gap-4
-            md:grid-cols-4
-            lg:grid-cols-4
-          "
+          style={{ maxHeight: "calc(96vh - 70px)" }}
+          className="flex-1 grid grid-cols-2 overflow-auto mt-4 ml-2 mr-4 p-4 no-scrollbar gap-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6"
         >
           {products.map((product, index) => (
             <div
               key={index}
-              className="
-                h-[250] w-[250]
-                p-2
-                text-center
-                bg-white
-                rounded shadow
-              "
+              className="p-2 text-center text-sm bg-white rounded-lg shadow hover:shadow-lg transition"
             >
-              <img
-                src={product.image}
-                alt={product.name}
-                className="
-                  object-cover
-                  h-48
-                  mx-auto
-                "
-              />
-              <h3
-                className="
-                  mt-2
-                  text-sm
-                "
+              <div className="overflow-hidden w-full aspect-square rounded">
+                <img
+                  src={product.image}
+                  alt={product.name}
+                  className="object-cover w-full h-full"
+                />
+              </div>
+              <h3 className="mt-2">{product.name}</h3>
+              <p className="text-orange-600 font-bold">{product.price}</p>
+              <button
+                onClick={() => handleAddToCart(product)}
+                className="w-full mt-2 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
               >
-                {product.name}
-              </h3>
-              <p
-                className="
-                  text-orange-600 font-bold
-                "
-              >
-                {product.price}
-              </p>
+                Add to Cart
+              </button>
             </div>
           ))}
         </div>
       </div>
 
-      {/* Floating Cart Button */}
-      <button
-        className="
-          w-[125px]
-          p-4
-          bg-[#F6B24D]
-          rounded-xl
-          shadow-lg
-          fixed bottom-10 right-10 justify-items-center
-        "
-      >
+      <button className="flex w-[125px] p-4 bg-[#F6B24D] rounded-xl shadow-lg fixed bottom-10 right-10 items-center justify-center">
         <FaShoppingCart size={30} color="black" />
       </button>
     </div>
   );
 }
 
-export default buyerDashboard;
+export default BuyerDashboard;
